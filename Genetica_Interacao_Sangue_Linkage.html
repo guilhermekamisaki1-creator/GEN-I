@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Genética além de Mendel — Interação, Sangue e Linkage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --paper:#fffdf8; --ink:#27221c; --muted:#6c6357; --line:#e3d9c6; --soft:#efe7d8;
+  --accent:#b0512a; --accent-soft:#f6e4d8;
+  --teal:#1e6c68; --teal-soft:#e1f0ee;
+  --blue:#2b5b8c; --blue-soft:#e3ecf6;
+  --red:#a8322a; --red-soft:#f8e3e0;
+  --gold:#9a6a06; --gold-soft:#fbf0d4;
+  --plum:#6b3d6c; --plum-soft:#f1e5f1;
+  --green:#2e6a3a; --green-soft:#e3f0e4;
+  --orange:#b35c00; --orange-soft:#fdebd6;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,"Courier New",monospace;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.68;-webkit-font-smoothing:antialiased}
+#progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));z-index:100;transition:width .1s linear}
+a{color:var(--blue)}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);max-width:1320px;margin:0 auto}
+/* ---------- NAV ---------- */
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 18px 40px 26px;border-right:1px solid var(--line);font-size:14.5px}
+nav.toc .brand{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.2;margin-bottom:4px}
+nav.toc .brand small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--muted);margin-top:4px;letter-spacing:.02em}
+nav.toc ol{list-style:none;margin:18px 0 0;padding:0}
+nav.toc li{margin:0}
+nav.toc .grp{margin-top:16px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+nav.toc a{display:block;padding:5px 10px;border-radius:8px;color:var(--ink);text-decoration:none;border-left:3px solid transparent}
+nav.toc a:hover{background:var(--soft)}
+nav.toc a.active{background:var(--accent-soft);border-left-color:var(--accent);font-weight:600}
+nav.toc a.sub{padding-left:22px;font-size:13.5px;color:var(--muted)}
+nav.toc a.sub.active{color:var(--ink)}
+.menu-btn{display:none}
+/* ---------- MAIN ---------- */
+main{padding:40px 48px 120px;min-width:0}
+.wrap{max-width:880px;margin:0 auto}
+header.hero{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:44px 44px 36px;position:relative;overflow:hidden}
+header.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft),transparent 70%)}
+.kicker{position:relative;z-index:1;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+h1{font-family:var(--serif);font-size:44px;line-height:1.08;margin:10px 0 14px;font-weight:700;letter-spacing:-.01em;position:relative;z-index:1}
+h2{font-family:var(--serif);font-size:32px;line-height:1.15;margin:0 0 6px;font-weight:700}
+h3{font-family:var(--serif);font-size:23px;margin:38px 0 10px;font-weight:700;line-height:1.25}
+h4{font-size:17px;margin:26px 0 8px;font-weight:700;color:var(--teal)}
+p{margin:0 0 14px}
+.lead{font-size:19px;color:var(--muted);position:relative;z-index:1}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;position:relative;z-index:1}
+.chip{display:inline-block;font-size:13px;padding:4px 11px;border-radius:999px;background:var(--soft);border:1px solid var(--line);color:var(--muted);font-weight:600}
+section.mod{margin-top:64px}
+.modhead{display:flex;gap:16px;align-items:flex-start;padding-bottom:16px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+.modnum{font-family:var(--serif);font-size:15px;font-weight:700;background:var(--ink);color:var(--paper);border-radius:10px;padding:6px 11px;white-space:nowrap;margin-top:6px}
+.modhead p{margin:4px 0 0;color:var(--muted)}
+.part{scroll-margin-top:20px}
+.g{font-family:var(--mono);font-size:.92em;background:var(--soft);padding:1px 6px;border-radius:6px;white-space:nowrap}
+.g sup{font-size:.7em}
+p.g{white-space:normal;max-width:100%}
+strong{font-weight:700}
+mark{background:#fbe7a8;padding:0 3px;border-radius:3px}
+ul,ol{padding-left:22px;margin:0 0 14px}
+li{margin:4px 0}
+/* ---------- BOXES ---------- */
+.box{border-radius:var(--r);padding:18px 22px 8px;margin:20px 0;border:1px solid var(--line);background:var(--paper);border-left-width:6px}
+.box .tag{display:inline-block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:6px}
+.box.def{border-left-color:var(--teal);background:var(--teal-soft)} .box.def .tag{color:var(--teal)}
+.box.comp{border-left-color:var(--blue);background:var(--blue-soft)} .box.comp .tag{color:var(--blue)}
+.box.trap{border-left-color:var(--red);background:var(--red-soft)} .box.trap .tag{color:var(--red)}
+.box.exam{border-left-color:var(--gold);background:var(--gold-soft)} .box.exam .tag{color:var(--gold)}
+.box.analog{border-left-color:var(--plum);background:var(--plum-soft)} .box.analog .tag{color:var(--plum)}
+.box.fix{border-left-color:var(--orange);background:var(--orange-soft)} .box.fix .tag{color:var(--orange)}
+.box.key{border-left-color:var(--green);background:var(--green-soft)} .box.key .tag{color:var(--green)}
+.box.adv{border-left-color:var(--ink);background:#f3efe7} .box.adv .tag{color:var(--ink)}
+.comp-lbl{font-weight:800;color:var(--blue)}
+/* ---------- TABLES ---------- */
+.tbl{overflow-x:auto;margin:18px 0;border-radius:12px;border:1px solid var(--line);background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{padding:10px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:700;font-size:14px;letter-spacing:.02em}
+tr:last-child td{border-bottom:none}
+td.c,th.c{text-align:center}
+.punnett{width:auto;margin:0 auto;font-family:var(--mono);font-size:13.5px}
+.punnett th,.punnett td{text-align:center;padding:8px 10px;border:1px solid var(--line)}
+.punnett td span{display:block;font-family:var(--sans);font-size:11px;font-weight:700;margin-top:2px}
+.ph1{background:#f6d7c3}.ph2{background:#d8e8f5}.ph3{background:#dcefd9}.ph4{background:#efe3f3}
+.legend{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;font-size:13.5px;margin:10px 0 4px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:5px;border:1px solid rgba(0,0,0,.1)}
+/* ---------- SCHEMES ---------- */
+pre.scheme{font-family:var(--mono);font-size:13.8px;line-height:1.55;background:#2a2621;color:#f3ecdf;border-radius:14px;padding:18px 20px;overflow-x:auto;margin:18px 0}
+pre.scheme b{color:#ffcf8a;font-weight:600}
+pre.scheme i{color:#9fd8cf;font-style:normal}
+pre.scheme u{color:#f3a79e;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0;justify-content:center}
+.flow .st{background:var(--paper);border:1.5px solid var(--ink);border-radius:10px;padding:8px 12px;font-weight:600;font-size:14.5px;text-align:center;min-width:92px}
+.flow .st small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.flow .ar{align-self:center;font-weight:700;color:var(--accent);font-size:13px;text-align:center;line-height:1.2}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.card h5{margin:0 0 6px;font-size:15.5px;font-family:var(--serif)}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+figure{margin:20px 0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;text-align:center}
+.bars{display:flex;align-items:flex-end;gap:10px;height:170px;justify-content:center;padding:8px 0 0}
+.bars div{width:52px;background:linear-gradient(180deg,var(--accent),#d98a5e);border-radius:6px 6px 0 0;position:relative}
+.bars div span{position:absolute;top:-22px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:12.5px;font-weight:600}
+.barlbl{display:flex;gap:10px;justify-content:center}
+.barlbl div{width:52px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.25;margin-top:6px}
+/* ---------- QUESTIONS ---------- */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:18px 0}
+.q .src{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.q .alts{list-style:none;padding:0;margin:10px 0}
+.q .alts li{padding:5px 10px;border-radius:8px}
+details{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:700;color:var(--teal);list-style:none;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--teal-soft);font-size:14.5px}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"▸";transition:transform .2s}
+details[open] summary:before{transform:rotate(90deg)}
+details .ans{padding-top:12px}
+.gab{display:inline-block;background:var(--green);color:#fff;font-weight:800;border-radius:8px;padding:2px 10px;font-size:14px;margin-bottom:8px}
+/* ---------- VIDEOS ---------- */
+.videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin:18px 0}
+a.vid{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:transform .15s,box-shadow .15s,border-color .15s}
+a.vid:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(60,40,20,.10);border-color:var(--accent)}
+a.vid .play{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#c4302b;border-radius:999px;padding:4px 10px;width:max-content}
+a.vid .play:before{content:"";border-left:8px solid #fff;border-top:5px solid transparent;border-bottom:5px solid transparent}
+a.vid b{font-size:15px;line-height:1.35}
+a.vid small{color:var(--muted);font-size:13px}
+.verified{font-size:12.5px;color:var(--muted);margin-top:-4px}
+/* ---------- MISC ---------- */
+.checklist{list-style:none;padding:0}
+.checklist li{padding:8px 12px 8px 38px;position:relative;background:var(--paper);border:1px solid var(--line);border-radius:10px;margin:8px 0}
+.checklist li:before{content:"✓";position:absolute;left:13px;top:8px;color:var(--green);font-weight:800}
+.big-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:20px 0}
+.big-map .card{border-top:5px solid var(--accent)}
+.big-map .card:nth-child(2){border-top-color:var(--teal)}
+.big-map .card:nth-child(3){border-top-color:var(--blue)}
+.big-map .card:nth-child(4){border-top-color:var(--plum)}
+.big-map .card:nth-child(5){border-top-color:var(--gold)}
+.formula{font-family:var(--mono);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;display:inline-block;margin:6px 0 14px;font-size:15px}
+.totop{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,.18);opacity:.85}
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1020px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:fixed;inset:0 auto 0 0;width:300px;background:var(--bg);z-index:60;transform:translateX(-105%);transition:transform .25s;box-shadow:0 0 40px rgba(0,0,0,.2)}
+  nav.toc.open{transform:none}
+  .menu-btn{display:flex;position:fixed;left:16px;bottom:22px;top:auto;box-shadow:0 6px 18px rgba(0,0,0,.18);z-index:70;background:var(--ink);color:var(--paper);border:none;border-radius:10px;padding:9px 14px;font:700 14px var(--sans);cursor:pointer;gap:6px;align-items:center}
+  main{padding:24px 16px 100px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  h1{font-size:32px} h2{font-size:26px} h3{font-size:21px}
+  header.hero{padding:28px 20px}
+  .cols{grid-template-columns:1fr}
+  .box{padding:14px 16px 6px}
+  .q{padding:16px}
+  .bars div,.barlbl div{width:40px}
+  .modhead{flex-direction:column;gap:6px}
+}
+@media print{
+  nav.toc,.menu-btn,#progress,.totop{display:none!important}
+  .layout{display:block} main{padding:0}
+  body{background:#fff;font-size:12pt}
+  details{display:block} details .ans{display:block!important}
+  section.mod{break-before:page}
+  .box,.q,.card,figure,.tbl,pre.scheme{break-inside:avoid}
+  a.vid{border:1px solid #999}
+  a.vid:after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<button class="menu-btn" id="menuBtn" aria-label="Abrir sumário">☰ Sumário</button>
+<div class="layout">
+<nav class="toc" id="toc" aria-label="Sumário">
+  <div class="brand">Genética além de Mendel<small>2º ano EM · Aula completa · Vestibulares de elite</small></div>
+  <ol>
+    <li class="grp">Abertura</li>
+    <li><a href="#inicio">Visão geral do tema</a></li>
+    <li><a href="#base">0 · Revisão: Mendel e vocabulário</a></li>
+    <li class="grp">Módulo 1 — Genes × caracteres</li>
+    <li><a href="#pleiotropia">1.1 Pleiotropia</a></li>
+    <li><a href="#interacao">1.2 Interação gênica: a ideia</a></li>
+    <li><a href="#crista">1.3 Crista de galinhas (9:3:3:1)</a></li>
+    <li><a href="#epistasia">1.4 Epistasia</a></li>
+    <li><a class="sub" href="#epi-dom">Epistasia dominante</a></li>
+    <li><a class="sub" href="#epi-rec">Epistasia recessiva</a></li>
+    <li><a href="#quantitativa">1.5 Herança quantitativa</a></li>
+    <li><a href="#m1-fecho">1.6 Pegadinhas, prova e vídeos</a></li>
+    <li class="grp">Módulo 2 — Sistemas sanguíneos</li>
+    <li><a href="#polialelia">2.1 Alelos múltiplos</a></li>
+    <li><a href="#abo">2.2 Sistema ABO</a></li>
+    <li><a href="#transfusao">2.3 Aglutinação e transfusões</a></li>
+    <li><a href="#rh">2.4 Sistema Rh (e MN)</a></li>
+    <li><a href="#tipagem">2.5 Tipagem sanguínea</a></li>
+    <li><a href="#eritro">2.6 Eritroblastose fetal</a></li>
+    <li><a href="#m2-fecho">2.7 Pegadinhas, prova e vídeos</a></li>
+    <li class="grp">Módulo 3 — Ligação gênica</li>
+    <li><a href="#linkage">3.1 O que é linkage</a></li>
+    <li><a href="#crossing">3.2 Crossing-over e taxa</a></li>
+    <li><a href="#cistrans">3.3 Cis, trans e cruzamento-teste</a></li>
+    <li><a href="#mapas">3.4 Mapas genéticos</a></li>
+    <li><a href="#m3-fecho">3.5 Pegadinhas, prova e vídeos</a></li>
+    <li class="grp">Treino</li>
+    <li><a href="#q-interacao">Questões: Interação gênica</a></li>
+    <li><a href="#q-sangue">Questões: Sistemas sanguíneos</a></li>
+    <li><a href="#q-ligacao">Questões: Ligação gênica</a></li>
+    <li class="grp">Fechamento</li>
+    <li><a href="#revisao">Revisão final</a></li>
+  </ol>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- ================= ABERTURA ================= -->
+<header class="hero part" id="inicio">
+  <div class="kicker">Genética · 2ª série · Profs. Ismael e Murilo · Setembro/2026</div>
+  <h1>Genética além de Mendel: interação gênica, pleiotropia, sistemas sanguíneos e ligação gênica</h1>
+  <p class="lead">Quando “um gene = uma característica” deixa de ser verdade: vários genes decidindo um só caráter, um gene afetando o corpo inteiro, genes com muitos alelos e genes que viajam juntos no mesmo cromossomo.</p>
+  <div class="meta">
+    <span class="chip">Slides: Interação gênica × Pleiotropia</span>
+    <span class="chip">Slides: Sistemas sanguíneos ABO e Rh</span>
+    <span class="chip">Tarefa: Interação gênica</span>
+    <span class="chip">Tarefa: Ligação gênica</span>
+  </div>
+</header>
+
+<section class="part" style="margin-top:40px">
+  <h2>Visão geral do tema</h2>
+  <p>Mendel trabalhou com casos “limpos”: <strong>1 par de genes → 1 característica</strong> (1ª lei) e <strong>2 pares de genes em cromossomos diferentes → 2 características, que se distribuem de forma independente</strong> (2ª lei). Toda esta aula é sobre o que acontece quando a realidade é mais complicada. Dá para organizar tudo numa pergunta só: <mark>quantos genes, quantas características e onde esses genes estão?</mark></p>
+
+  <div class="big-map">
+    <div class="card"><h5>Pleiotropia</h5><p><strong>1 gene → várias características.</strong><br>Ex.: fenilcetonúria, anemia falciforme.</p></div>
+    <div class="card"><h5>Interação gênica</h5><p><strong>Vários genes → 1 característica.</strong><br>Ex.: crista de galinhas, labradores, altura, cor da pele.</p></div>
+    <div class="card"><h5>Alelos múltiplos</h5><p><strong>1 gene com 3 ou mais alelos na população.</strong><br>Ex.: sistema ABO.</p></div>
+    <div class="card"><h5>Ligação gênica</h5><p><strong>2 genes no mesmo cromossomo</strong> → não seguem a 2ª lei.<br>Ex.: mapas genéticos.</p></div>
+    <div class="card"><h5>Herança do sangue</h5><p><strong>ABO, Rh e MN</strong> → aplicação médica: transfusões e eritroblastose fetal.</p></div>
+  </div>
+
+  <pre class="scheme"><b>MENDEL (casos simples)</b>
+  1ª lei:  1 par de genes  ───────────►  1 característica
+  2ª lei:  2 pares (cromossomos ≠) ───►  2 características, independentes
+
+<b>ALÉM DE MENDEL</b>
+  <i>Pleiotropia</i>       1 par de genes  ──┬──►  característica 1
+                                     ├──►  característica 2
+                                     └──►  característica 3
+
+  <i>Interação gênica</i>  gene A ──┐
+                    gene B ──┼──►  UMA característica
+                    gene C ──┘
+
+  <i>Alelos múltiplos</i>  1 locus, mas na POPULAÇÃO existem I<sup>A</sup>, I<sup>B</sup> e i
+                    (cada pessoa carrega só 2 deles)
+
+  <i>Ligação gênica</i>    A────B   no MESMO cromossomo → herdados "em bloco",
+                    a────b   separados só por crossing-over</pre>
+
+  <div class="box fix">
+    <div class="tag">Nota de fidelidade ao material</div>
+    <p>Esta aula segue os slides e as tarefas enviados. Onde o material tinha <strong>erros de digitação, imprecisões ou dados trocados</strong>, isso está sinalizado em caixas laranja como esta, com a versão correta. Os principais: o nome da enzima e da substância na fenilcetonúria (slide 5 de Interação), a tabela do sistema MN na questão UNESP 2021 (fenótipos N e MN trocados), a “luz ultravioleta” no tratamento da icterícia, o número de aminoácidos da hemoglobina e pequenos erros de digitação nas respostas das tarefas.</p>
+  </div>
+</section>
+
+<!-- ================= MÓDULO 0 ================= -->
+<section class="mod part" id="base">
+  <div class="modhead"><span class="modnum">Módulo 0</span><div><h2>Revisão rápida: Mendel e o vocabulário que você precisa</h2><p>Sem estes termos, nada do resto faz sentido. Leia com calma.</p></div></div>
+
+  <p>O slide 2 da aula de Interação Gênica abre com Mendel e uma foto de ervilhas amarelas e verdes, lisas e rugosas — os caracteres clássicos dele:</p>
+  <div class="tbl"><table>
+    <tr><th>Lei</th><th>O que diz</th><th>Relação genes → caracteres</th><th>Proporção clássica na F2</th></tr>
+    <tr><td><strong>1ª lei</strong> (segregação)</td><td>Cada característica é determinada por um par de fatores (alelos) que se separam na formação dos gametas.</td><td>1 par de genes → 1 característica fenotípica</td><td><span class="g">3 : 1</span> (Aa × Aa)</td></tr>
+    <tr><td><strong>2ª lei</strong> (segregação independente)</td><td>Pares de alelos localizados em cromossomos diferentes se distribuem nos gametas de forma independente.</td><td>2 pares de genes → 2 características fenotípicas</td><td><span class="g">9 : 3 : 3 : 1</span> (AaBb × AaBb)</td></tr>
+  </table></div>
+
+  <h4>Dicionário essencial</h4>
+  <div class="tbl"><table>
+    <tr><th>Termo</th><th>Definição acessível</th></tr>
+    <tr><td><strong>Gene</strong></td><td>Trecho de DNA com a “receita” de um produto (em geral, uma proteína/enzima).</td></tr>
+    <tr><td><strong>Locus</strong> (plural <em>loci</em>)</td><td>O “endereço” fixo do gene no cromossomo.</td></tr>
+    <tr><td><strong>Alelos</strong></td><td>Versões diferentes do mesmo gene, ocupando o mesmo locus em cromossomos homólogos (ex.: <span class="g">A</span> e <span class="g">a</span>).</td></tr>
+    <tr><td><strong>Genes não alelos</strong></td><td>Genes de loci diferentes (ex.: <span class="g">A</span> e <span class="g">B</span>). Podem estar no mesmo cromossomo ou em cromossomos diferentes.</td></tr>
+    <tr><td><strong>Genótipo / fenótipo</strong></td><td>Genótipo = constituição genética (<span class="g">Aa</span>). Fenótipo = o que se manifesta (cor, forma, tipo sanguíneo…), resultado do genótipo + ambiente.</td></tr>
+    <tr><td><strong>Homozigoto / heterozigoto</strong></td><td>Alelos iguais (<span class="g">AA</span>, <span class="g">aa</span>) / alelos diferentes (<span class="g">Aa</span>).</td></tr>
+    <tr><td><strong>Dominância / codominância</strong></td><td>Dominância: um alelo “esconde” o outro. Codominância: os dois se expressam juntos (ex.: <span class="g">I<sup>A</sup>I<sup>B</sup></span> = tipo AB).</td></tr>
+    <tr><td><strong>Dominância incompleta</strong></td><td>O heterozigoto tem fenótipo <em>intermediário</em> entre os homozigotos.</td></tr>
+    <tr><td><strong>Notação com “_”</strong></td><td><span class="g">A_</span> significa “pelo menos um A” (pode ser <span class="g">AA</span> ou <span class="g">Aa</span>). Muito usada em interação gênica: <span class="g">R_E_</span>.</td></tr>
+  </table></div>
+
+  <div class="box key"><div class="tag">A chave que abre a aula inteira</div>
+  <p>Genes fabricam <strong>enzimas</strong>. Enzimas trabalham em <strong>rotas metabólicas</strong> (sequências de reações). Por isso: <br>• um gene defeituoso que atua numa rota usada por vários tecidos afeta várias características → <strong>pleiotropia</strong>;<br>• uma característica que depende de uma rota com várias etapas depende de vários genes → <strong>interação gênica</strong>.</p>
+  <p>É por isso que o slide de abertura mostra uma rota metabólica cheia de enzimas numeradas (a glicólise, com 10 etapas e 10 enzimas): cada seta é uma enzima, e cada enzima vem de um gene.</p></div>
+</section>
+
+<!-- ================= MÓDULO 1 ================= -->
+<section class="mod part" id="pleiotropia">
+  <div class="modhead"><span class="modnum">Módulo 1</span><div><h2>Genes × caracteres: pleiotropia e interação gênica</h2><p>Slides “Interação gênica × Pleiotropia” + Tarefa de Interação Gênica.</p></div></div>
+
+  <h3>1.1 Pleiotropia — um gene, muitos efeitos</h3>
+  <div class="box def"><div class="tag">Definição (slide)</div>
+  <p>“A pleiotropia constitui, de certo modo, um fenômeno <strong>inverso à interação gênica</strong>. Na pleiotropia, <strong>um único par de genes atua na manifestação de vários caracteres</strong>.”</p>
+  <p class="g" style="display:inline-block">1 par de alelos → múltiplos efeitos</p></div>
+
+  <p><strong>Por que funciona assim?</strong> O gene produz uma proteína. Se essa proteína participa de processos em vários órgãos, ou se a sua falta gera um “efeito dominó” no metabolismo, o defeito aparece em vários lugares ao mesmo tempo. O gene é um só; os efeitos se espalham.</p>
+
+  <h4>Exemplo 1 do slide: fenilcetonúria (PKU)</h4>
+  <p>A criança afetada tem um par de alelos recessivos (<span class="g">ff</span>) que causa defeito na enzima <strong>fenilalanina hidroxilase</strong>. Consequências que o slide destaca:</p>
+  <pre class="scheme">                    ┌──►  <b>Retardo mental</b> (hoje: deficiência intelectual)
+  Par <b>ff</b>  ───────────┼──►  <b>Problemas de pele</b> (pele mais clara — menos melanina)
+                    └──►  <b>Fenilalanina na urina</b></pre>
+
+  <p>Entenda o mecanismo passo a passo:</p>
+  <div class="flow">
+    <div class="st">Fenilalanina<small>aminoácido da dieta</small></div>
+    <div class="ar">fenilalanina<br>hidroxilase ✗<br>(gene F)</div>
+    <div class="st">Tirosina<small>não é produzida o suficiente</small></div>
+    <div class="ar">→</div>
+    <div class="st">Melanina<small>pigmento da pele</small></div>
+  </div>
+  <ol>
+    <li><strong>Sem a enzima</strong>, a fenilalanina não é convertida em tirosina e <strong>se acumula</strong>.</li>
+    <li>O excesso é desviado para outra via e vira <strong>ácido fenilpirúvico</strong> (uma “fenilcetona”), tóxico para o sistema nervoso em desenvolvimento → deficiência intelectual.</li>
+    <li>Com menos tirosina, forma-se <strong>menos melanina</strong> → pele (e cabelos) mais claros do que deveriam.</li>
+    <li>As substâncias em excesso são eliminadas na <strong>urina</strong> → daí o nome: <em>fenil-ceto-núria</em> (“núria” = urina).</li>
+  </ol>
+  <div class="box fix"><div class="tag">Correção do slide</div>
+  <p>O slide diz “enzima <em>felilalanina</em> hidroxilase, responsável pela conversão do <em>aminoácido fenilpirúvico</em>”. O correto: a enzima é a <strong>fenilalanina hidroxilase</strong> e ela converte o aminoácido <strong>fenilalanina em tirosina</strong>. O ácido fenilpirúvico <strong>não é aminoácido</strong>: é o produto que se forma quando a fenilalanina se acumula. A ideia central do slide (acúmulo → dano neurológico + menos melanina) está certa.</p></div>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>A PKU é detectada no <strong>teste do pezinho</strong>. O tratamento é uma dieta pobre em fenilalanina desde os primeiros dias de vida — por isso produtos com aspartame trazem o aviso “contém fenilalanina”. É um ótimo exemplo de que <strong>fenótipo = genótipo + ambiente</strong>: o genótipo <span class="g">ff</span> não muda, mas a dieta evita a deficiência intelectual.</p></div>
+
+  <h4>Exemplo 2 do slide: anemia falciforme</h4>
+  <p>O slide mostra uma hemácia normal (disco bicôncavo) ao lado de uma em forma de foice e um fluxograma. Lendo o fluxograma de cima para baixo:</p>
+  <pre class="scheme"><b>TROCA DE UM AMINOÁCIDO</b>
+        ▼
+<b>HEMOGLOBINA ANÔMALA</b>
+        ▼
+<b>HEMÁCIAS FALCIFORMES</b> (em forma de foice)
+   │
+   ├─► <i>Destruição rápida das hemácias</i> ──► <u>ANEMIA</u>
+   │        ├─► fraqueza · funções mentais diminuídas
+   │        ├─► desenvolvimento físico retardado · insuficiência cardíaca
+   │        └─► hiperatividade da medula óssea ─► aumento da medula óssea
+   │
+   ├─► <i>Aglutinação de hemácias, interferindo na circulação</i>
+   │        └─► suprimento deficiente de sangue ─► alterações cardíacas,
+   │            pulmonares (pneumonia), de juntas e músculos (reumatismo),
+   │            cerebrais (paralisia), gastrointestinais (dor abdominal),
+   │            renais (insuficiência renal)
+   │
+   └─► <i>Acúmulo de hemácias falciformes no baço</i> ──► esplenomegalia</pre>
+  <p style="font-size:14px;color:var(--muted)">Obs.: o fluxograma do slide é uma imagem pequena; as ligações entre as caixas foram lidas da forma mais provável. Todos os itens listados aparecem na imagem.</p>
+  <p><strong>A mensagem:</strong> <mark>uma única mutação</mark> (troca de <em>um</em> aminoácido) gera dezenas de efeitos em órgãos diferentes. Isso é pleiotropia pura.</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>O slide de alelos múltiplos (aula de sangue) mostra exatamente essa mutação: no DNA, <span class="g">GAG</span> vira <span class="g">GTG</span>; no RNA, <span class="g">GAG</span> vira <span class="g">GUG</span>; na proteína, o ácido glutâmico (<span class="g">Glu</span>) é trocado por valina (<span class="g">Val</span>) na cadeia beta da hemoglobina. Aprofundamento que cai muito: heterozigotos (traço falciforme) têm maior resistência à malária, o que explica a alta frequência do alelo em regiões onde a malária é comum.</p></div>
+  <div class="box analog"><div class="tag">Analogia</div>
+  <p>Pense numa <strong>peça defeituosa no motor de um carro</strong>. Uma só peça (um gene) quebrada faz o carro esquentar, perder potência, gastar mais combustível e fazer barulho. Vários “sintomas”, uma só causa.</p></div>
+</section>
+
+<section class="part" id="interacao">
+  <h3>1.2 Interação gênica — vários genes, uma característica</h3>
+  <div class="box def"><div class="tag">Definição (slide)</div>
+  <p>“É o tipo de herança na qual a expressão fenotípica de <strong>um caráter</strong> é condicionada pela <strong>ação conjunta de dois ou mais pares de genes</strong> com segregação independente.”</p>
+  <p class="g" style="display:inline-block">Vários pares de genes → um só caráter hereditário</p></div>
+
+  <p>O slide “Complexidade além de Mendel” coloca lado a lado os dois fenômenos. Para a interação gênica, ele usa uma <strong>rota metabólica</strong> — o desenho mais importante para entender o tema:</p>
+  <div class="flow">
+    <div class="st">Composto<br>precursor</div><div class="ar">Enzima A<br>▲<br>Gene A</div>
+    <div class="st">Composto<br>intermediário 1</div><div class="ar">Enzima B<br>▲<br>Gene B</div>
+    <div class="st">Composto<br>intermediário 2</div><div class="ar">Enzima C<br>▲<br>Gene C</div>
+    <div class="st" style="background:#3a2a20;color:#fff">Pigmento</div>
+  </div>
+  <p><strong>Como interpretar:</strong> para o pigmento aparecer, <em>as três</em> enzimas precisam funcionar. Cada enzima vem de um gene diferente. Se qualquer um dos três genes estiver em uma forma que não funciona (por exemplo, recessivo em dose dupla), a linha de montagem para naquela etapa e o pigmento não é formado. Resultado: <mark>uma única característica (a cor) depende de três genes</mark>. Isso é interação gênica.</p>
+  <div class="box analog"><div class="tag">Analogia</div>
+  <p>Uma <strong>linha de montagem de fábrica</strong> com três operários em sequência. O produto final (pigmento) só sai se os três fizerem sua parte. Se o 2º operário faltar, não importa o quanto o 1º e o 3º trabalhem: nada sai no final.</p></div>
+
+  <div class="box trap"><div class="tag">Pegadinha de definição</div>
+  <p>O slide define interação gênica com genes “com segregação independente” — é o caso mais comum em exercícios. Mas a resposta oficial da tarefa (questão 1) diz que os genes podem estar “<strong>localizados ou não no mesmo cromossomo</strong>”, e a questão UERJ 2025 mostra justamente dois genes que interagem <strong>no mesmo cromossomo</strong>. Conclusão segura para prova: <strong>o que define interação gênica é vários genes atuando sobre o mesmo caráter</strong>; a localização dos genes é outra questão. Nos exercícios, se nada for dito, assuma segregação independente.</p></div>
+
+  <div class="tbl"><table>
+    <tr><th></th><th>Pleiotropia</th><th>Interação gênica</th></tr>
+    <tr><td><strong>Relação</strong></td><td>1 par de genes → vários caracteres</td><td>vários pares de genes → 1 caráter</td></tr>
+    <tr><td><strong>Imagem mental</strong></td><td>Uma fonte, muitos rios</td><td>Muitos rios, um só mar</td></tr>
+    <tr><td><strong>Exemplos</strong></td><td>Fenilcetonúria, anemia falciforme, gatos siameses (tarefa, questão 6), fibrose cística (UFRGS)</td><td>Crista de galinhas, plumagem de galinhas Leghorn, pelagem de labradores, cor dos olhos (UEL), altura e cor da pele</td></tr>
+  </table></div>
+</section>
+
+<section class="part" id="crista">
+  <h3>1.3 A descoberta (1905): a crista das galinhas</h3>
+  <p>O slide apresenta quatro tipos de crista:</p>
+  <div class="tbl"><table>
+    <tr><th>Crista</th><th>Raça típica (slide)</th><th>Genótipo</th><th>Leitura do genótipo</th></tr>
+    <tr><td><strong>Simples</strong></td><td>Leghorn</td><td><span class="g">rree</span></td><td>nenhum dominante</td></tr>
+    <tr><td><strong>Rosa</strong></td><td>Wyandotte</td><td><span class="g">R_ee</span> (RRee ou Rree)</td><td>só R dominante</td></tr>
+    <tr><td><strong>Ervilha</strong></td><td>Brahma</td><td><span class="g">rrE_</span> (rrEE ou rrEe)</td><td>só E dominante</td></tr>
+    <tr><td><strong>Noz</strong></td><td>sem raça definida</td><td><span class="g">R_E_</span> (RREE, RREe, RrEE ou RrEe)</td><td>os dois dominantes</td></tr>
+  </table></div>
+
+  <h4>A investigação, na ordem dos slides</h4>
+  <pre class="scheme"><b>Cruzamento 1</b>                     <b>Cruzamento 2</b>
+Ervilha × simples                Rosa × simples
+      ▼                                ▼
+F1: 100% ervilha                 F1: 100% rosa
+      ▼                                ▼
+F2: ervilha 3 : 1 simples        F2: rosa 3 : 1 simples
+
+→ parece herança mendeliana simples (1 gene, 3:1).
+
+<b>SURPRESA!!</b>   Ervilha × Rosa  ──►  F1: 100% <u>NOZ</u>  (um fenótipo novo!)
+               "Seria um caso de alelos múltiplos?"
+               F1 noz × F1 noz ──►  <b>9 : 3 : 3 : 1</b>  ──►  <u>2 pares de genes!!!</u></pre>
+
+  <p><strong>Por que 9:3:3:1 prova que são 2 pares de genes?</strong> Some: 9 + 3 + 3 + 1 = <strong>16</strong>. Dezesseis combinações = 4 tipos de gameta do pai × 4 tipos da mãe. Um indivíduo só forma 4 tipos de gameta se for heterozigoto para <strong>dois</strong> genes com segregação independente (<span class="g">RrEe</span> → RE, Re, rE, re). Se fosse um gene só com vários alelos, cada F1 formaria só 2 tipos de gameta e o total seria 4 combinações (proporções como 3:1 ou 1:2:1), nunca 16.</p>
+
+  <h4>Os genótipos por trás de cada cruzamento</h4>
+  <pre class="scheme">Ervilha pura <b>rrEE</b> × simples <b>rree</b>  →  F1 <b>rrEe</b> (ervilha) → F2: 3 rrE_ : 1 rree
+Rosa pura    <b>RRee</b> × simples <b>rree</b>  →  F1 <b>Rree</b> (rosa)    → F2: 3 R_ee : 1 rree
+Ervilha pura <b>rrEE</b> × rosa    <b>RRee</b>  →  F1 <b>RrEe</b> (NOZ: tem R e E ao mesmo tempo)</pre>
+
+  <h4>Quadro de Punnett da F2 (RrEe × RrEe)</h4>
+  <div class="tbl" style="border:none;background:none">
+  <table class="punnett">
+    <tr><th>♀ \ ♂</th><th>RE</th><th>Re</th><th>rE</th><th>re</th></tr>
+    <tr><th>RE</th><td class="ph1">RREE<span>noz</span></td><td class="ph1">RREe<span>noz</span></td><td class="ph1">RrEE<span>noz</span></td><td class="ph1">RrEe<span>noz</span></td></tr>
+    <tr><th>Re</th><td class="ph1">RREe<span>noz</span></td><td class="ph2">RRee<span>rosa</span></td><td class="ph1">RrEe<span>noz</span></td><td class="ph2">Rree<span>rosa</span></td></tr>
+    <tr><th>rE</th><td class="ph1">RrEE<span>noz</span></td><td class="ph1">RrEe<span>noz</span></td><td class="ph3">rrEE<span>ervilha</span></td><td class="ph3">rrEe<span>ervilha</span></td></tr>
+    <tr><th>re</th><td class="ph1">RrEe<span>noz</span></td><td class="ph2">Rree<span>rosa</span></td><td class="ph3">rrEe<span>ervilha</span></td><td class="ph4">rree<span>simples</span></td></tr>
+  </table></div>
+  <div class="legend"><span><i class="ph1"></i>9 noz (R_E_)</span><span><i class="ph2"></i>3 rosa (R_ee)</span><span><i class="ph3"></i>3 ervilha (rrE_)</span><span><i class="ph4"></i>1 simples (rree)</span></div>
+
+  <div class="box trap"><div class="tag">Pegadinha clássica</div>
+  <p>A proporção 9:3:3:1 aparece <strong>tanto</strong> na 2ª lei de Mendel <strong>quanto</strong> na interação gênica simples. A diferença: na 2ª lei são <strong>duas características</strong> (ex.: cor e textura da ervilha: amarela-lisa, amarela-rugosa…); na crista é <strong>uma característica só</strong> (formato da crista) com quatro fenótipos. Pergunte sempre: “quantos caracteres estão sendo analisados?”.</p></div>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>Este caso foi estudado por <strong>William Bateson e Reginald Punnett</strong> (o mesmo do “quadro de Punnett”), por isso o slide cita 1905. Chama-se “interação gênica simples” (ou não epistática) porque nenhum gene esconde o outro: cada combinação de dominantes gera um fenótipo próprio, inclusive um fenótipo novo (noz) que não existia nos pais.</p></div>
+</section>
+
+<section class="part" id="epistasia">
+  <h3>1.4 Epistasia — quando um gene “cala” o outro</h3>
+  <div class="box def"><div class="tag">Definição (slide)</div>
+  <p>“Constitui uma modalidade de interação gênica na qual genes de um par de alelos <strong>inibem</strong> a manifestação de genes de outros pares. Na epistasia, a dominância manifesta-se entre <strong>genes não-alelos</strong>.”</p></div>
+  <div class="cols">
+    <div class="card"><h5>Gene epistático</h5><p>O que <strong>inibe</strong> (fica “por cima”; do grego <em>epi</em> = sobre).</p></div>
+    <div class="card"><h5>Gene hipostático</h5><p>O que <strong>é inibido</strong> (fica “por baixo”; <em>hipo</em> = sob).</p></div>
+  </div>
+  <p><strong>Por que “dominância entre não-alelos”?</strong> Dominância comum acontece entre alelos do mesmo gene (A sobre a). Na epistasia, o “mandar em cima do outro” acontece entre genes de <em>loci diferentes</em> (ex.: <span class="g">I</span> sobre <span class="g">C</span>). Essa é exatamente a pergunta da UERJ 2025 (tarefa, questão 2).</p>
+  <div class="box analog"><div class="tag">Analogia</div>
+  <p>Uma casa com o <strong>disjuntor geral</strong> (gene epistático) e os <strong>interruptores de cada cômodo</strong> (gene hipostático). Se o disjuntor estiver desligado, não importa a posição dos interruptores: tudo fica apagado. O interruptor continua lá, com a sua “informação”, mas não consegue se manifestar.</p></div>
+
+  <h4 id="epi-dom" class="part">Epistasia dominante — plumagem das galinhas Leghorn</h4>
+  <p>O gene epistático é <strong>dominante</strong>: basta <strong>um</strong> alelo <span class="g">I</span> para inibir a cor.</p>
+  <ul>
+    <li><span class="g">C</span> = colorido (hipostático) · <span class="g">c</span> = sem cor</li>
+    <li><span class="g">I</span> = inibidor da cor (epistático) · <span class="g">i</span> = não inibe</li>
+  </ul>
+  <pre class="scheme"><b>I_C_</b>  ┐
+<b>I_cc</b>  ├──►  <u>BRANCA</u>          <b>iiC_</b>  ──►  <i>COLORIDA</i>
+<b>iicc</b>  ┘
+
+Colorida:  CCii  ou  Ccii
+Branca:    CCII · CCIi · CcII · CcIi · ccII · ccIi · ccii</pre>
+  <p><strong>Leitura:</strong> para ser colorida, a galinha precisa de duas condições ao mesmo tempo: ter pelo menos um <span class="g">C</span> (saber fazer pigmento) <strong>e</strong> ser <span class="g">ii</span> (não ter inibidor). Repare que <span class="g">ccii</span> é branca por outro motivo: não tem inibidor, mas também não tem <span class="g">C</span>.</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>No cruzamento de duplos heterozigotos <span class="g">IiCc × IiCc</span>: 9 <span class="g">I_C_</span> (branca) + 3 <span class="g">I_cc</span> (branca) + 1 <span class="g">iicc</span> (branca) = <strong>13 brancas</strong>; 3 <span class="g">iiC_</span> = <strong>3 coloridas</strong>. Proporção <strong>13 : 3</strong>.</p></div>
+
+  <h4 id="epi-rec" class="part">Epistasia recessiva — pelagem dos labradores</h4>
+  <p>O gene epistático é <strong>recessivo</strong>: só inibe <strong>em dose dupla</strong> (<span class="g">ee</span>).</p>
+  <ul>
+    <li><strong>Epistático:</strong> <span class="g">e</span> (só inibe em dose dupla) — o gene E controla a <em>deposição</em> do pigmento no pelo.</li>
+    <li><strong>Hipostáticos:</strong> <span class="g">B</span> = pigmento preto (<span class="g">BB</span> ou <span class="g">Bb</span>); <span class="g">b</span> = pigmento marrom/chocolate (<span class="g">bb</span>).</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Fenótipo</th><th>Genótipo (slide)</th><th>Por quê</th></tr>
+    <tr><td>⬛ <strong>Preto</strong></td><td><span class="g">E_B_</span></td><td>deposita pigmento, e o pigmento é preto</td></tr>
+    <tr><td>🟫 <strong>Marrom / chocolate</strong></td><td><span class="g">E_bb</span></td><td>deposita pigmento, e o pigmento é marrom</td></tr>
+    <tr><td>🟨 <strong>Dourado</strong></td><td><span class="g">ee_ _</span></td><td>não deposita pigmento, qualquer que seja o B/b</td></tr>
+  </table></div>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>Em <span class="g">EeBb × EeBb</span>: 9 <span class="g">E_B_</span> (pretos) : 3 <span class="g">E_bb</span> (chocolates) : 3 <span class="g">eeB_</span> + 1 <span class="g">eebb</span> = 4 dourados. Proporção <strong>9 : 3 : 4</strong>. Um labrador dourado pode “esconder” um genótipo <span class="g">BB</span>, <span class="g">Bb</span> ou <span class="g">bb</span> — ele só revela isso nos filhotes (é exatamente o raciocínio da questão Unicamp).</p></div>
+
+  <div class="box adv"><div class="tag">Aprofundamento — as proporções “disfarçadas” de 9:3:3:1</div>
+  <p class="comp-lbl">Complemento para melhor compreensão:</p>
+  <p>Toda interação entre dois genes com segregação independente, no cruzamento de duplos heterozigotos, dá <strong>16 partes</strong>. O que muda é como os 16 se agrupam. Se a soma der 16, desconfie de interação gênica com 2 pares:</p>
+  <div class="tbl"><table>
+    <tr><th>Proporção F2</th><th>Tipo</th><th>Como surge (a partir de 9 : 3 : 3 : 1)</th></tr>
+    <tr><td><span class="g">9 : 3 : 3 : 1</span></td><td>Interação simples (crista)</td><td>cada classe tem fenótipo próprio</td></tr>
+    <tr><td><span class="g">9 : 3 : 4</span></td><td>Epistasia recessiva (labrador)</td><td>3 + 1 juntam-se (todos com <span class="g">ee</span>)</td></tr>
+    <tr><td><span class="g">13 : 3</span></td><td>Epistasia dominante com o hipostático recessivo sem cor (Leghorn)</td><td>9 + 3 + 1 juntam-se</td></tr>
+    <tr><td><span class="g">12 : 3 : 1</span></td><td>Epistasia dominante (ex.: cor da abóbora)</td><td>9 + 3 juntam-se</td></tr>
+    <tr><td><span class="g">9 : 7</span></td><td>Epistasia recessiva dupla / genes complementares</td><td>3 + 3 + 1 juntam-se</td></tr>
+    <tr><td><span class="g">15 : 1</span></td><td>Genes duplicados</td><td>9 + 3 + 3 juntam-se</td></tr>
+  </table></div></div>
+</section>
+
+<section class="part" id="quantitativa">
+  <h3>1.5 Herança quantitativa (polimeria ou poligênica)</h3>
+  <div class="box def"><div class="tag">Definição (slides)</div>
+  <p>“Nesse tipo de interação gênica, dois ou mais pares de genes apresentam seus <strong>efeitos somados</strong>, manifestam uma mesma característica hereditária com fenótipos de <strong>diferentes intensidades</strong> (que podem ser medidos), com <strong>variação contínua</strong>.”</p>
+  <p>“Dentro de cada par de genes envolvidos, há um <strong>gene aditivo (poligene)</strong> que determina um acréscimo na expressão do fenótipo, enquanto o seu <strong>alelo indiferente</strong> não acrescenta nada a um certo valor mínimo, chamado <strong>fenótipo residual</strong>.”</p>
+  <p><strong>Poligene:</strong> gene que individualmente exerce um <em>leve efeito</em> em um traço, mas, em conjunto com poucos ou muitos genes, controla uma característica quantitativa. Exemplos: peso, altura, cor da pele na espécie humana.</p></div>
+
+  <p><strong>A lógica é de soma, não de dominância.</strong> Cada alelo aditivo (maiúsculo) vale “+1 degrau”. Não importa <em>em qual</em> gene ele está, só <em>quantos</em> existem no genótipo. Assim, <span class="g">AABb</span>, <span class="g">AaBB</span> têm o mesmo fenótipo (3 aditivos), e <span class="g">AAbb</span>, <span class="g">aaBB</span> e <span class="g">AaBb</span> também são iguais entre si (2 aditivos).</p>
+  <div class="box analog"><div class="tag">Analogia</div>
+  <p>Um <strong>regulador de volume com vários botões “+”</strong>. Cada alelo aditivo aperta um “+”. O alelo indiferente não aperta nada. O volume final depende só de quantos “+” foram apertados. Com muitos botões, o volume parece variar de forma quase contínua.</p></div>
+
+  <h4>Exemplo resolvido (modelo com 2 pares)</h4>
+  <p>Planta com altura mínima (<span class="g">aabb</span>, fenótipo residual) de 10 cm e máxima (<span class="g">AABB</span>) de 30 cm. Quanto vale cada aditivo?</p>
+  <p class="formula">(30 − 10) ÷ 4 aditivos = 5 cm por alelo aditivo</p>
+  <p>Cruzando dois <span class="g">AaBb</span>, conte os aditivos na F2 (4 alelos por genótipo, 16 combinações):</p>
+  <figure>
+    <div class="bars">
+      <div style="height:20%"><span>1/16</span></div><div style="height:57%"><span>4/16</span></div><div style="height:85%"><span>6/16</span></div><div style="height:57%"><span>4/16</span></div><div style="height:20%"><span>1/16</span></div>
+    </div>
+    <div class="barlbl"><div>0 adit.<br>10 cm</div><div>1 adit.<br>15 cm</div><div>2 adit.<br>20 cm</div><div>3 adit.<br>25 cm</div><div>4 adit.<br>30 cm</div></div>
+    <figcaption>F2 de AaBb × AaBb: 5 classes na proporção 1 : 4 : 6 : 4 : 1 — o formato de “sino” do slide final.</figcaption>
+  </figure>
+
+  <h4>Fórmulas de ouro (n = número de pares de genes)</h4>
+  <div class="tbl"><table>
+    <tr><th>O que se quer</th><th>Fórmula</th><th>n = 2</th><th>n = 3</th></tr>
+    <tr><td>Número de classes fenotípicas</td><td><span class="g">2n + 1</span></td><td>5</td><td>7</td></tr>
+    <tr><td>Proporção de <em>cada</em> extremo na F2 (duplos heterozigotos cruzados)</td><td><span class="g">(1/4)ⁿ</span></td><td>1/16</td><td>1/64</td></tr>
+    <tr><td>Número de genótipos diferentes na F2</td><td><span class="g">3ⁿ</span></td><td>9</td><td>27</td></tr>
+    <tr><td>Valor de cada alelo aditivo</td><td><span class="g">(máx − mín) ÷ 2n</span></td><td>÷ 4</td><td>÷ 6</td></tr>
+    <tr><td>Distribuição das classes</td><td>linha <span class="g">2n</span> do triângulo de Pascal</td><td>1:4:6:4:1</td><td>1:6:15:20:15:6:1</td></tr>
+  </table></div>
+  <p style="font-size:14px;color:var(--muted)">Estas fórmulas são complemento para melhor compreensão — não estão nos slides, mas são a ferramenta mais cobrada em questões de herança quantitativa.</p>
+  <div class="box exam"><div class="tag">Truque de prova (caminho inverso)</div>
+  <p>“Na F2, 1/256 dos indivíduos tem o fenótipo máximo. Quantos pares de genes?” → <span class="g">(1/4)ⁿ = 1/256</span> → <span class="g">4ⁿ = 256</span> → <strong>n = 4</strong> → <strong>9 classes</strong> fenotípicas (2·4 + 1).</p></div>
+
+  <h4>O experimento do slide: comprimento da corola do tabaco (<em>Nicotiana longiflora</em>)</h4>
+  <p>O gráfico “Herança de caracteres contínuos” tem três faixas (eixo: comprimento da corola, de 40 a 100 mm):</p>
+  <pre class="scheme"><b>Linhagens puras</b>     ▇▅ (~40 mm)                     ▃▅▇▂ (~90 mm)   → fonte de variação: <i>AMBIENTE</i>
+         cruzamento  ────────────►  X  ◄────────────
+<b>F1</b>                            ▁▂▅▇▅▁  (intermediária)        → fonte de variação: <i>AMBIENTE</i>
+                                  │ autopolinização
+<b>F2</b>                   ▁▁▂▃▅▇▅▃▃▂▂▁  (bem mais espalhada)     → fonte de variação: <i>AMBIENTE e GENÓTIPO</i></pre>
+  <p><strong>Por que a coluna “Fontes de variação” muda?</strong></p>
+  <ul>
+    <li><strong>Linhagens puras:</strong> todos os indivíduos são geneticamente iguais (homozigotos). Se há alguma variação de tamanho, só pode vir do <strong>ambiente</strong> (solo, luz, água).</li>
+    <li><strong>F1:</strong> todos são iguais entre si (todos heterozigotos para todos os genes, mesmo genótipo) → a pequena variação também é só <strong>ambiental</strong>. A média fica no meio dos pais.</li>
+    <li><strong>F2:</strong> agora há segregação — surgem muitos genótipos diferentes com números diferentes de aditivos. A variação vem do <strong>ambiente e do genótipo</strong>, por isso o gráfico se espalha.</li>
+  </ul>
+  <p>O slide de abertura dessa parte mostra a mesma ideia em outra figura (gerações parental, F1, F2 e F3, com histogramas de 40 a 90 mm): na F3, descendentes de plantas F2 curtas tendem a ser curtos e de F2 longas tendem a ser longos — prova de que a variação da F2 tinha base genética.</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>Esse experimento é de E. M. East (1916). Nas F2 reais quase não aparecem indivíduos tão extremos quanto os pais — sinal de que eram <strong>muitos</strong> pares de genes (com n grande, <span class="g">(1/4)ⁿ</span> fica minúsculo).</p></div>
+
+  <h4>Distribuição do fenótipo: a curva normal</h4>
+  <p>O último slide mostra um histograma em forma de sino com três marcações: <strong>expressividade mínima do caráter</strong> (um extremo, raro), <strong>expressividade média</strong> (o centro, mais frequente) e <strong>expressividade máxima</strong> (outro extremo, raro). Quanto mais genes, mais classes e mais o histograma se aproxima de uma curva contínua (a curva de Gauss).</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>Livros didáticos usam o <strong>modelo de 2 pares de genes para a pigmentação da pele</strong> (5 classes, de pigmentação mínima a máxima, 1:4:6:4:1). É um <strong>modelo simplificado</strong>: a pigmentação real envolve dezenas de genes e sofre forte influência do ambiente (exposição ao sol). Em prova, use o modelo que o enunciado der.</p></div>
+</section>
+
+<section class="part" id="m1-fecho">
+  <h3>1.6 Fechamento do Módulo 1</h3>
+  <h4>Pontos de atenção e pegadinhas</h4>
+  <div class="box trap"><div class="tag">Confusões que derrubam candidatos</div>
+  <ul>
+    <li><strong>Epistasia ≠ dominância.</strong> Dominância é entre alelos do <em>mesmo</em> locus; epistasia é entre genes de loci <em>diferentes</em> (UERJ 2025).</li>
+    <li><strong>“Epistasia recessiva” não quer dizer que o fenótipo inibido é recessivo.</strong> Quer dizer que o gene <em>epistático</em> precisa estar em dose dupla (<span class="g">ee</span>) para agir.</li>
+    <li><strong>Pleiotropia ≠ interação gênica.</strong> Pergunte: é um gene com vários efeitos, ou vários genes num efeito só?</li>
+    <li><strong>9:3:3:1 com um só caráter</strong> = interação gênica; com dois caracteres = 2ª lei.</li>
+    <li><strong>Herança quantitativa não tem dominância:</strong> <span class="g">Aa</span> não “vale” igual a <span class="g">AA</span>. Conte aditivos.</li>
+    <li><strong>Fenótipo residual</strong> é o valor mínimo (sem nenhum aditivo), não zero.</li>
+    <li><strong>Alelos têm sequências de DNA diferentes</strong> (senão seriam o mesmo alelo) — item III da UEL 2024.</li>
+    <li><strong>Hipostático não some:</strong> o gene inibido continua no genótipo e pode reaparecer nos descendentes (o dourado que tem filhote preto).</li>
+  </ul></div>
+
+  <h4>O que mais cai em prova</h4>
+  <div class="box exam"><div class="tag">Radar do vestibular</div>
+  <ul>
+    <li><strong>Labradores</strong> (Unicamp, FUVEST 2018): descobrir genótipos a partir dos filhotes e contar descendentes. Aparece <em>duas vezes</em> no seu material.</li>
+    <li><strong>Diferenciar fenômenos por definição</strong> (UFRGS 2024, questão dos siameses): polialelia, dominância incompleta, epistasia, pleiotropia, poligenia.</li>
+    <li><strong>Epistasia × dominância</strong> em questão discursiva (UERJ 2025).</li>
+    <li><strong>Herança quantitativa com contas</strong>: número de classes, valor do aditivo, proporção dos extremos.</li>
+    <li><strong>Proporções modificadas</strong> (9:3:4, 13:3, 9:7, 15:1): reconhecer que a soma 16 indica dois genes.</li>
+  </ul></div>
+
+  <h4>Recomendações de vídeos completos no YouTube</h4>
+  <p class="verified">Todos os links abaixo abrem direto no vídeo e foram verificados em 22/09/2026: públicos, disponíveis e reproduzíveis.</p>
+  <div class="videos">
+    <a class="vid" href="https://www.youtube.com/watch?v=TDej2xDBMQo" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Interação Gênica Simples — Aula 11, Módulo 2: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 9:58</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=08LPYpObAxw" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Epistasia — Aula 12, Módulo II: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 19:57</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=QrtTJY7BY1g" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Epistasia em labradores — Aula 12, Módulo 2: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 10:18</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=4J1Vbg9i_ro" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Herança Quantitativa — Aula 13, Módulo II: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 27:44</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=40IHkpdDSCw" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Pleiotropia × Interação gênica (GEN24)</b><small>Me Salva! ENEM · 5:17 · vídeo curto, focado na diferença</small></a>
+  </div>
+</section>
+
+<!-- ================= MÓDULO 2 ================= -->
+<section class="mod part" id="polialelia">
+  <div class="modhead"><span class="modnum">Módulo 2</span><div><h2>Sistemas sanguíneos: ABO, Rh (e MN)</h2><p>Slides “Sistemas sanguíneos ABO e Rh” (28 slides).</p></div></div>
+
+  <p>O slide “Determinação genética” já entrega o contraste central do módulo:</p>
+  <div class="cols">
+    <div class="card"><h5>Sistema ABO</h5><ul><li><strong>Caso clássico de alelos múltiplos</strong></li><li>Determinado por 3 alelos: <span class="g">I<sup>A</sup></span>, <span class="g">I<sup>B</sup></span> e <span class="g">i</span></li><li>Relação de dominância: <span class="g">I<sup>A</sup> = I<sup>B</sup> &gt; i</span></li></ul></div>
+    <div class="card"><h5>Sistema Rh</h5><ul><li><strong>Não é caso de alelos múltiplos</strong> (no modelo escolar)</li><li>Rh<sup>+</sup> → <span class="g">RR</span> ou <span class="g">Rr</span></li><li>Rh<sup>−</sup> → <span class="g">rr</span></li></ul></div>
+  </div>
+
+  <h3>2.1 Alelos múltiplos (polialelia)</h3>
+  <div class="box def"><div class="tag">Definição</div>
+  <p>Um mesmo gene (mesmo locus) apresenta <strong>três ou mais alelos na população</strong>. Mas atenção: cada indivíduo diploide carrega <strong>no máximo dois</strong> deles, um em cada cromossomo homólogo.</p></div>
+  <p>O slide explica a <strong>origem</strong> e o <strong>destino</strong> desses alelos:</p>
+  <ul>
+    <li><strong>Origem: mutações diferentes</strong> no mesmo gene. Um gene é uma sequência longa; cada ponto dela pode sofrer mutação, gerando uma versão nova (um alelo novo). A imagem mostra o exemplo da hemoglobina: DNA <span class="g">GAG</span> → <span class="g">GTG</span>, RNA <span class="g">GAG</span> → <span class="g">GUG</span>, proteína <span class="g">Glu</span> → <span class="g">Val</span> (célula falciforme).</li>
+    <li><strong>Seleção natural reduz a variabilidade genética</strong>: alelos desfavoráveis tendem a ser eliminados da população ao longo das gerações. O diagrama do slide resume: <em>mutação, recombinação e migração</em> geram variabilidade genética na população (a matéria-prima); <em>seleção natural e deriva genética</em> atuam sobre ela → evolução biológica.</li>
+  </ul>
+  <div class="box fix"><div class="tag">Correção do slide</div>
+  <p>O slide diz “hemoglobina tem mais de 600 aminoácidos”. A hemoglobina adulta tem <strong>574 aminoácidos</strong> (4 cadeias: 2 alfa com 141 e 2 beta com 146). A ideia do slide continua válida: <strong>são centenas de posições em que uma mutação pode acontecer</strong>, e cada mutação diferente pode originar um alelo diferente.</p></div>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>Com <strong>n alelos</strong> para um gene, o número de genótipos possíveis é <span class="g">n(n + 1) / 2</span>. No ABO: 3 alelos → 3·4/2 = <strong>6 genótipos</strong> (<span class="g">I<sup>A</sup>I<sup>A</sup></span>, <span class="g">I<sup>A</sup>i</span>, <span class="g">I<sup>B</sup>I<sup>B</sup></span>, <span class="g">I<sup>B</sup>i</span>, <span class="g">I<sup>A</sup>I<sup>B</sup></span>, <span class="g">ii</span>) e <strong>4 fenótipos</strong> (A, B, AB, O). Outro exemplo clássico de polialelia: pelagem de coelhos (selvagem &gt; chinchila &gt; himalaia &gt; albino).</p></div>
+</section>
+
+<section class="part" id="abo">
+  <h3>2.2 Sistema ABO</h3>
+  <p>Dois personagens, e você precisa saber onde cada um mora:</p>
+  <div class="cols">
+    <div class="card" style="border-top:5px solid var(--red)"><h5>Aglutinogênios = antígenos</h5><p><strong>Presentes nas hemácias</strong> (na membrana). São cadeias de açúcares que funcionam como “crachás” da célula.</p></div>
+    <div class="card" style="border-top:5px solid var(--blue)"><h5>Aglutininas = anticorpos</h5><p><strong>Presentes no plasma</strong>. São proteínas em forma de Y que reconhecem e grudam em antígenos estranhos.</p></div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>Tipo</th><th>Genótipos (slide)</th><th>Aglutinogênio na hemácia</th><th>Aglutinina no plasma</th></tr>
+    <tr><td><strong>A</strong></td><td><span class="g">I<sup>A</sup>I<sup>A</sup></span> ou <span class="g">I<sup>A</sup>i</span></td><td>A</td><td>anti-B</td></tr>
+    <tr><td><strong>B</strong></td><td><span class="g">I<sup>B</sup>I<sup>B</sup></span> ou <span class="g">I<sup>B</sup>i</span></td><td>B</td><td>anti-A</td></tr>
+    <tr><td><strong>AB</strong></td><td><span class="g">I<sup>A</sup>I<sup>B</sup></span></td><td>A e B</td><td>nenhuma</td></tr>
+    <tr><td><strong>O</strong></td><td><span class="g">ii</span></td><td>nenhum (sem antígenos A e B)</td><td>anti-A e anti-B</td></tr>
+  </table></div>
+  <p><strong>A regra que gera a tabela inteira:</strong> <mark>o organismo não produz anticorpo contra o próprio antígeno</mark>. Quem tem A não pode ter anti-A (senão aglutinaria o próprio sangue). Então cada pessoa tem, no plasma, anticorpos contra os antígenos ABO que <em>não</em> possui.</p>
+  <p><strong>Relação de dominância <span class="g">I<sup>A</sup> = I<sup>B</sup> &gt; i</span>:</strong> <span class="g">I<sup>A</sup></span> e <span class="g">I<sup>B</sup></span> são <strong>codominantes</strong> entre si (no AB, os dois antígenos aparecem) e ambos são <strong>dominantes</strong> sobre <span class="g">i</span>.</p>
+
+  <h4>O que as figuras moleculares do slide mostram</h4>
+  <pre class="scheme">Legenda: ⬡ N-acetilglicosamina   ⬢ galactose   ● fucose   <i>◆ N-acetilgalactosamina</i>
+
+Tipo <b>O</b>   hemácia ─⬡─⬢─┬─      cadeia "base" (sem o açúcar final)
+                   ●
+Tipo <b>A</b>   hemácia ─⬡─⬢─┬─<i>◆</i>    base + N-acetilgalactosamina
+                   ●
+Tipo <b>B</b>   hemácia ─⬡─⬢─┬─⬢    base + galactose extra
+                   ●
+Tipo <b>AB</b>  as duas cadeias (A e B) na mesma hemácia</pre>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div>
+  <p>A cadeia “base” do tipo O é o <strong>antígeno H</strong>. Os alelos <span class="g">I<sup>A</sup></span> e <span class="g">I<sup>B</sup></span> codificam <strong>enzimas</strong> que acrescentam o último açúcar (A ou B) sobre o H; o alelo <span class="g">i</span> produz uma enzima que não funciona, então o H fica “livre”. Aprofundamento: pessoas <span class="g">hh</span> não fabricam nem o H e, por isso, parecem tipo O mesmo tendo <span class="g">I<sup>A</sup></span> ou <span class="g">I<sup>B</sup></span> — o <strong>falso O (fenótipo Bombaim)</strong>, um exemplo de epistasia recessiva dentro do sistema ABO.</p></div>
+</section>
+
+<section class="part" id="transfusao">
+  <h3>2.3 Aglutinação ≠ coagulação e transfusões</h3>
+  <div class="cols">
+    <div class="card"><h5>Aglutinação</h5><p>Reação <strong>imunológica</strong>: anticorpos (Y) se ligam a antígenos de várias hemácias ao mesmo tempo e as “amarram” em grumos. É o que acontece numa transfusão incompatível e é o que se vê na tipagem.</p></div>
+    <div class="card"><h5>Coagulação</h5><p>Processo de <strong>defesa contra hemorragia</strong>: plaquetas e fatores de coagulação formam uma rede de <strong>fibrina</strong> que prende as hemácias e fecha o vaso (a foto do slide mostra hemácias presas numa malha de fios).</p></div>
+  </div>
+  <div class="box trap"><div class="tag">Pegadinha</div><p>Em transfusão incompatível o sangue <strong>aglutina</strong>, não “coagula”. Trocar os termos custa pontos em questão discursiva.</p></div>
+
+  <h4>Transfusões compatíveis</h4>
+  <ul>
+    <li><strong>Preferenciais = homotípicas</strong>: mesmo tipo sanguíneo (A para A, B para B…).</li>
+    <li><strong>Emergenciais = heterotípicas</strong>: tipos diferentes, mas compatíveis.</li>
+  </ul>
+  <pre class="scheme">            ┌──────┐
+      ┌────►│  A   │────┐
+      │     └──────┘    ▼
+   ┌──────┐          ┌──────┐
+   │  O   │─────────►│  AB  │     (cada tipo também doa para si mesmo)
+   └──────┘          └──────┘
+      │     ┌──────┐    ▲
+      └────►│  B   │────┘
+            └──────┘
+  <b>O</b> = doador universal (hemácias sem antígenos A e B)
+  <b>AB</b> = receptor universal (plasma sem anti-A e sem anti-B)</pre>
+  <div class="tbl"><table>
+    <tr><th>Receptor ↓ / Doador →</th><th class="c">O</th><th class="c">A</th><th class="c">B</th><th class="c">AB</th></tr>
+    <tr><td><strong>O</strong> (anti-A e anti-B)</td><td class="c">✅</td><td class="c">❌</td><td class="c">❌</td><td class="c">❌</td></tr>
+    <tr><td><strong>A</strong> (anti-B)</td><td class="c">✅</td><td class="c">✅</td><td class="c">❌</td><td class="c">❌</td></tr>
+    <tr><td><strong>B</strong> (anti-A)</td><td class="c">✅</td><td class="c">❌</td><td class="c">✅</td><td class="c">❌</td></tr>
+    <tr><td><strong>AB</strong> (nenhuma)</td><td class="c">✅</td><td class="c">✅</td><td class="c">✅</td><td class="c">✅</td></tr>
+  </table></div>
+  <div class="box key"><div class="tag">Como raciocinar (nunca decore sem entender)</div>
+  <p>Pergunte: <strong>“as hemácias do doador têm algum antígeno contra o qual o plasma do receptor tem anticorpo?”</strong> Se sim, incompatível. O que importa são os <em>antígenos do doador</em> × <em>anticorpos do receptor</em>.</p>
+  <p class="comp-lbl">Complemento para melhor compreensão:</p>
+  <p>E os anticorpos do plasma do doador? Numa transfusão heterotípica de emergência, eles chegam em pequena quantidade e se diluem no grande volume de sangue do receptor, então o efeito costuma ser desprezado nas questões. Hoje, na prática, os hospitais transfundem principalmente concentrado de hemácias (com pouco plasma).</p></div>
+</section>
+
+<section class="part" id="rh">
+  <h3>2.4 Sistema Rh (e um bônus: sistema MN)</h3>
+  <h4>A descoberta (slide “Sistema Rh → descoberta”)</h4>
+  <div class="flow">
+    <div class="st">Hemácias do<br>macaco <em>Rhesus</em></div><div class="ar">injetadas<br>→</div>
+    <div class="st">Coelho<small>produz anticorpos anti-Rh</small></div><div class="ar">extração<br>→</div>
+    <div class="st">Soro anti-Rh</div><div class="ar">testado<br>→</div>
+    <div class="st">Sangue humano<small>85% aglutina (Rh+) · 15% não (Rh−)</small></div>
+  </div>
+  <p>O antígeno recebeu o nome do macaco: <strong>fator Rh</strong>. As pessoas cujas hemácias aglutinaram com o soro têm o antígeno (Rh<sup>+</sup>); as que não aglutinaram não têm (Rh<sup>−</sup>).</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div><p>Experimento de Karl Landsteiner (o mesmo que descobriu o ABO) e Alexander Wiener, por volta de 1940. As porcentagens de 85%/15% do slide se referem aos indivíduos testados naquele experimento.</p></div>
+
+  <h4>Tabela do slide “Sistema Rh”</h4>
+  <div class="tbl"><table>
+    <tr><th>Genótipo</th><th>Grupo</th><th>Hemácias</th><th>Plasma</th></tr>
+    <tr><td><span class="g">DD</span> ou <span class="g">Dd</span> (= <span class="g">RR</span> ou <span class="g">Rr</span>)</td><td><strong>Rh+</strong></td><td>Com antígeno Rh</td><td>Sem anticorpos anti-Rh</td></tr>
+    <tr><td><span class="g">dd</span> (= <span class="g">rr</span>)</td><td><strong>Rh−</strong></td><td>Sem antígeno Rh</td><td>Com anticorpos anti-Rh <strong>se recebeu hemácias com antígeno Rh</strong></td></tr>
+  </table></div>
+  <div class="box trap"><div class="tag">A diferença mais cobrada entre ABO e Rh</div>
+  <p>No <strong>ABO</strong>, os anticorpos são <strong>naturais</strong>: já existem no plasma sem contato prévio (uma pessoa tipo A tem anti-B sem nunca ter recebido sangue B). No <strong>Rh</strong>, a pessoa Rh<sup>−</sup> <strong>só produz anti-Rh depois de ser sensibilizada</strong> (transfusão Rh<sup>+</sup> ou gestação de filho Rh<sup>+</sup>). Por isso a primeira transfusão Rh<sup>+</sup> num Rh<sup>−</sup> costuma não dar reação imediata, mas a segunda pode ser grave.</p></div>
+  <div class="box fix"><div class="tag">Atenção à notação</div><p>Os slides usam duas notações para o mesmo gene: <span class="g">R/r</span> (slide 2 e eritroblastose) e <span class="g">D/d</span> (tabela do Rh e reagente “anti-D”). Significam a mesma coisa: <span class="g">R</span> = <span class="g">D</span> = alelo dominante que produz o antígeno.</p></div>
+  <div class="tbl"><table>
+    <tr><th>Receptor ↓ / Doador →</th><th class="c">Rh+</th><th class="c">Rh−</th></tr>
+    <tr><td><strong>Rh+</strong></td><td class="c">✅</td><td class="c">✅</td></tr>
+    <tr><td><strong>Rh−</strong></td><td class="c">❌ (sensibiliza)</td><td class="c">✅</td></tr>
+  </table></div>
+  <p>Juntando os dois sistemas: <strong>O<sup>−</sup></strong> é o doador universal e <strong>AB<sup>+</sup></strong> é o receptor universal (complemento para melhor compreensão).</p>
+
+  <h4>Sistema MN (aparece na questão UNESP 2021)</h4>
+  <p>Definido pelos antígenos M e N na superfície das hemácias, condicionados por <strong>dois alelos de um gene</strong>, <span class="g">L<sup>M</sup></span> e <span class="g">L<sup>N</sup></span>, que são <strong>codominantes</strong>:</p>
+  <div class="tbl"><table>
+    <tr><th>Fenótipo</th><th>Genótipo correto</th></tr>
+    <tr><td>M</td><td><span class="g">L<sup>M</sup>L<sup>M</sup></span></td></tr>
+    <tr><td>N</td><td><span class="g">L<sup>N</sup>L<sup>N</sup></span></td></tr>
+    <tr><td>MN</td><td><span class="g">L<sup>M</sup>L<sup>N</sup></span></td></tr>
+  </table></div>
+  <div class="box fix"><div class="tag">Erro na tabela do slide</div><p>Na tabela do slide da UNESP 2021, as linhas estão <strong>trocadas</strong>: aparece “N → <span class="g">L<sup>M</sup>L<sup>N</sup></span>” e “MN → <span class="g">L<sup>N</sup>L<sup>N</sup></span>”. O correto é <strong>N → <span class="g">L<sup>N</sup>L<sup>N</sup></span></strong> e <strong>MN → <span class="g">L<sup>M</sup>L<sup>N</sup></span></strong> (se há os dois alelos, aparecem os dois antígenos). O erro não muda o gabarito da questão, mas não o leve para a prova.</p></div>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div><p>Não há anticorpos naturais anti-M ou anti-N relevantes, por isso o sistema MN praticamente não importa em transfusões. Ele é usado em questões de genética (codominância) e, historicamente, em testes de paternidade.</p></div>
+</section>
+
+<section class="part" id="tipagem">
+  <h3>2.5 Tipagem sanguínea</h3>
+  <p>Coloca-se uma gota de sangue (obtida por punção no dedo, como na foto do slide) em contato com soros que contêm anticorpos conhecidos: <strong>anti-A</strong>, <strong>anti-B</strong> e <strong>anti-D</strong> (anti-Rh) — os três frascos coloridos do slide.</p>
+  <div class="box key"><div class="tag">Regra de leitura</div><p><strong>Aglutinou com o soro anti-X → a hemácia TEM o antígeno X.</strong> O soro é o “detector”; a aglutinação é o “alarme”.</p></div>
+  <div class="tbl"><table>
+    <tr><th>Tipo</th><th class="c">Soro anti-A</th><th class="c">Soro anti-B</th></tr>
+    <tr><td><strong>A</strong></td><td class="c">aglutina</td><td class="c">—</td></tr>
+    <tr><td><strong>B</strong></td><td class="c">—</td><td class="c">aglutina</td></tr>
+    <tr><td><strong>AB</strong></td><td class="c">aglutina</td><td class="c">aglutina</td></tr>
+    <tr><td><strong>O</strong></td><td class="c">—</td><td class="c">—</td></tr>
+  </table></div>
+  <p>No segundo slide de tipagem (“SAMPLE — ABO+D”), a amostra mostra pontinhos (hemácias aglutinadas) com <strong>anti-A</strong> e com <strong>anti-D</strong>, e aspecto liso com anti-B. Leitura mais provável: sangue <strong>A Rh<sup>+</sup></strong>.</p>
+  <div class="box trap"><div class="tag">Pegadinha</div><p>“Aglutinou com anti-A” <strong>não</strong> significa que a pessoa tem anti-A. Significa o contrário: ela tem o <strong>antígeno A</strong> (e, portanto, tem anti-B no plasma, se não for AB).</p></div>
+</section>
+
+<section class="part" id="eritro">
+  <h3>2.6 Eritroblastose fetal (doença hemolítica do recém-nascido)</h3>
+  <h4>O nome explica a doença</h4>
+  <p>Há uma <strong>grande destruição das hemácias</strong> (anucleadas) do feto — por isso “<strong>hemolítica</strong>”. Para compensar, a medula do feto lança no sangue <strong>eritroblastos</strong> (eritrócitos imaturos, ainda com núcleo) — por isso “<strong>eritroblastose</strong>”.</p>
+  <p><strong>Sintomas consequentes:</strong></p>
+  <ul>
+    <li><strong>Anemia</strong> — faltam hemácias funcionais.</li>
+    <li><strong>Icterícia</strong> (pele amarelada) — alta taxa de <strong>bilirrubina</strong>, pigmento amarelo que se forma quando a hemoglobina das hemácias destruídas é degradada.</li>
+  </ul>
+
+  <h4>A causa</h4>
+  <p><strong>Mãe Rh<sup>−</sup> (<span class="g">rr</span>) produz anticorpos anti-Rh contra hemácias Rh<sup>+</sup> do feto (<span class="g">Rr</span>).</strong> Para o feto ser Rh<sup>+</sup> com mãe <span class="g">rr</span>, o alelo <span class="g">R</span> veio do pai (Rh<sup>+</sup>).</p>
+
+  <h4>A sequência dos acontecimentos (slides 22 a 25)</h4>
+  <pre class="scheme"><b>1ª GESTAÇÃO</b> (filho Rh+)
+  A barreira placentária impede o contato efetivo entre sangue materno e fetal.
+  → o 1º filho normalmente NÃO é afetado.
+        ▼
+<b>PARTO → SENSIBILIZAÇÃO</b>
+  Hemácias Rh+ do bebê passam para a circulação da mãe.
+  Em contato com o fator Rh (antígeno), a mãe passa a produzir
+  aglutininas anti-Rh — e guarda MEMÓRIA imunológica.
+        ▼
+<b>GESTAÇÃO POSTERIOR</b> (outro filho Rh+)
+  A mãe transfere anticorpos para o bebê (imunização passiva/"congênita"),
+  entre os quais os anti-Rh.
+        ▼
+<b>ANTICORPOS MATERNOS PROVOCAM A DOENÇA</b>
+  anti-Rh atravessam a placenta → aglutinam/destroem hemácias Rh+ do feto
+  → hemólise → anemia + icterícia + eritroblastos no sangue</pre>
+  <p>A figura do slide 25 mostra isso em três quadros (A: hemácias Rh<sup>+</sup> do feto entram na circulação materna; B: a mãe produz anti-Rh; C: os anti-Rh cruzam a placenta e aglutinam hemácias fetais, provocando a eritroblastose).</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div><p>Os anti-Rh são anticorpos do tipo <strong>IgG</strong>, pequenos o suficiente para atravessar a placenta. Já os anti-A e anti-B naturais são majoritariamente <strong>IgM</strong> (grandes), que não atravessam — por isso a incompatibilidade ABO entre mãe e feto costuma ser bem mais branda.</p></div>
+
+  <h4>A genealogia do slide</h4>
+  <pre class="scheme">      Lúcia (<b>rr</b>)  ──────  João (<b>Rr</b>)
+       mãe Rh−       │      pai Rh+
+        ┌────────┬───┴────┬────────┐
+      Lúcia     João    Pedro    Marina
+      (<b>Rr</b>)      (<b>Rr</b>)    (<b>rr</b>)     (<b>rr</b>)
+       Rh+       Rh+     Rh−       Rh−
+    sensibiliza <u>DOENTE</u>   livre     livre</pre>
+  <p><strong>Por que “a doença só ocorreria com João”?</strong> Lendo os filhos da esquerda para a direita como ordem de nascimento (interpretação mais provável): a 1ª filha (Lúcia, Rh<sup>+</sup>) é o primeiro contato — ela <em>sensibiliza</em> a mãe, mas não adoece. O 2º filho (João, Rh<sup>+</sup>) já encontra a mãe sensibilizada → é o afetado. Pedro e Marina são Rh<sup>−</sup>: não têm o antígeno, então os anti-Rh não têm alvo. Premissa: a mãe não tinha sido sensibilizada antes (por transfusão ou gestação anterior).</p>
+  <div class="box comp"><div class="tag">Complemento para melhor compreensão:</div><p>Esse heredograma é de uma questão da FUVEST (o nome do arquivo no slide indica “fuv2000”).</p></div>
+
+  <h4>Tratamento (slide 26)</h4>
+  <div class="tbl"><table>
+    <tr><th>Problema</th><th>Tratamento</th><th>Se não tratar</th></tr>
+    <tr><td>Anemia</td><td>Transfusão de sangue <strong>Rh<sup>−</sup></strong></td><td>pode ocorrer a morte</td></tr>
+    <tr><td>Icterícia</td><td>Banho de luz (fototerapia)</td><td>dano neurológico (o slide diz “retardo mental”)</td></tr>
+  </table></div>
+  <p><strong>Por que sangue Rh<sup>−</sup> se o bebê é Rh<sup>+</sup>?</strong> Porque o bebê ainda tem anticorpos anti-Rh da mãe circulando. Hemácias Rh<sup>+</sup> transfundidas seriam destruídas também. Hemácias Rh<sup>−</sup> não têm o antígeno, então “passam ilesas” até os anticorpos maternos desaparecerem; depois, a medula do bebê repõe suas próprias hemácias Rh<sup>+</sup>.</p>
+  <div class="box fix"><div class="tag">Correção do slide</div><p>O slide fala em “banho de luz <strong>ultravioleta</strong>”. Na fototerapia neonatal usa-se <strong>luz azul (visível)</strong>, que transforma a bilirrubina em formas que o bebê consegue eliminar; a radiação ultravioleta é evitada. A ideia “luz trata a icterícia” está certa; o tipo de luz, não.</p></div>
+
+  <h4>Prevenção (slide 27)</h4>
+  <ul>
+    <li><strong>Injeção de anticorpos anti-Rh (soro preventivo) na mãe</strong>,</li>
+    <li><strong>até 3 dias (72 h) depois do parto de criança Rh<sup>+</sup></strong>.</li>
+    <li>Os anticorpos injetados aglutinam as hemácias fetais que entraram na corrente sanguínea materna, <strong>o que impede a ativação do sistema imune</strong> da mãe: ela não chega a produzir seus próprios anti-Rh nem memória.</li>
+  </ul>
+  <div class="box trap"><div class="tag">Pegadinha de imunologia</div><p>A prevenção é feita com <strong>anticorpos prontos</strong> (imunização <strong>passiva</strong>, temporária), <strong>não</strong> com uma “vacina” de antígeno Rh (que seria imunização ativa e causaria exatamente a sensibilização que se quer evitar). Como o efeito é temporário, a aplicação é repetida a cada gestação de filho Rh<sup>+</sup> (complemento).</p></div>
+  <div class="box adv"><div class="tag">Aprofundamento — proteção pelo ABO</div><p class="comp-lbl">Complemento para melhor compreensão:</p><p>Se a mãe é <strong>O Rh<sup>−</sup></strong> e o bebê é <strong>A Rh<sup>+</sup></strong>, as hemácias fetais que entram na circulação materna no parto são destruídas rapidamente pelo <strong>anti-A natural</strong> da mãe, antes de sensibilizarem o sistema imune para o fator Rh. Resultado: o risco de eritroblastose cai. Questões de elite gostam desse raciocínio.</p></div>
+
+  <h4>Curiosidade do slide: Rh nulo, o “sangue dourado”</h4>
+  <p>O slide 28 diz que o sangue dourado “não apresenta antígenos e é muito raro”, e indica uma matéria do Olhar Digital (12/11/2025) segundo a qual apenas cerca de 50 pessoas no mundo têm esse sangue, e a ciência tenta fabricá-lo.</p>
+  <div class="box fix"><div class="tag">Precisão</div><p>O Rh nulo não tem <strong>nenhum antígeno do sistema Rh</strong> (que tem dezenas de antígenos, não só o D). Ele pode ter antígenos de outros sistemas, como o ABO. Então a frase correta é “não apresenta antígenos <strong>Rh</strong>”.</p></div>
+</section>
+
+<section class="part" id="m2-fecho">
+  <h3>2.7 Fechamento do Módulo 2</h3>
+  <h4>Pontos de atenção e pegadinhas</h4>
+  <div class="box trap"><div class="tag">Onde os candidatos erram</div>
+  <ul>
+    <li><strong>Antígeno na hemácia, anticorpo no plasma.</strong> Inverter isso derruba a questão inteira.</li>
+    <li><strong>Tipo O não tem antígenos A e B, mas tem os dois anticorpos</strong>; tipo AB é o contrário.</li>
+    <li><strong>Aglutinar com anti-A = ter antígeno A.</strong></li>
+    <li><strong>Aglutinação ≠ coagulação.</strong></li>
+    <li><strong>Anti-Rh não é natural</strong>: depende de sensibilização. Anti-A e anti-B são naturais.</li>
+    <li><strong>Eritroblastose:</strong> mãe Rh<sup>−</sup> + filho Rh<sup>+</sup>. Nunca o contrário. O 1º filho Rh<sup>+</sup> normalmente não é afetado (sem sensibilização prévia).</li>
+    <li><strong>Filhos Rh<sup>−</sup> nunca têm eritroblastose</strong> por Rh — não têm o antígeno.</li>
+    <li><strong>Tratamento com sangue Rh<sup>−</sup></strong>; <strong>prevenção com anti-Rh na mãe</strong> (não no bebê, não vacina).</li>
+    <li><strong>Codominância</strong> (<span class="g">I<sup>A</sup>I<sup>B</sup></span>, <span class="g">L<sup>M</sup>L<sup>N</sup></span>) ≠ <strong>dominância incompleta</strong> (fenótipo intermediário).</li>
+    <li><strong>Contar fenótipos ≠ calcular probabilidade</strong> (veja a resolução da UNESP 2021).</li>
+  </ul></div>
+  <h4>O que mais cai em prova</h4>
+  <div class="box exam"><div class="tag">Radar do vestibular</div>
+  <ul>
+    <li>Descobrir o tipo sanguíneo por <strong>testes de aglutinação</strong> com plasma/sangue de outras pessoas (FCMSCSP 2021).</li>
+    <li><strong>Combinar sistemas</strong> (ABO + Rh + MN) e contar fenótipos ou calcular probabilidades com a regra do “e” (UNESP 2021).</li>
+    <li><strong>Eritroblastose</strong>: condições, qual filho é afetado num heredograma, tratamento e prevenção.</li>
+    <li><strong>Transfusões</strong>: compatibilidade e “doador/receptor universal”.</li>
+    <li>Paternidade: excluir um suposto pai pelo tipo sanguíneo (um pai AB não pode ter filho O, por exemplo).</li>
+  </ul></div>
+  <h4>Recomendações de vídeos completos no YouTube</h4>
+  <p class="verified">Todos os links abrem direto no vídeo e foram verificados em 22/09/2026: públicos, disponíveis e reproduzíveis.</p>
+  <div class="videos">
+    <a class="vid" href="https://www.youtube.com/watch?v=YHVGww7D7Ig" target="_blank" rel="noopener"><span class="play">Assistir</span><b>SISTEMA ABO e RH — Tipos sanguíneos (aula completa)</b><small>Biologia com Samuel Cunha · 41:59</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=Uxhn0R3IRNg" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Genética do SISTEMA ABO</b><small>Prof. Paulo Jubilut · 30:10</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=MReJirBQfXs" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Alelos múltiplos — Aula 06, Módulo 2: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 9:13</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=P_1-oH56rlA" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Sistema ABO — Aula 07, Módulo 2: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 21:02</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=1_ifbXaLBEY" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Sistema Rh, MN e Eritroblastose Fetal — Aula 08</b><small>Prof. Guilherme Goulart (Prof. Gui) · 14:06</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=tIp0atXSqNU" target="_blank" rel="noopener"><span class="play">Assistir</span><b>ERITROBLASTOSE FETAL — Doença Hemolítica Perinatal</b><small>Biologia com Samuel Cunha · 13:43</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=MEvdIDhKWGA" target="_blank" rel="noopener"><span class="play">Aprofundamento</span><b>SANGUE FALSO O — Fenótipo Bombaim</b><small>Biologia com Samuel Cunha · 17:05</small></a>
+  </div>
+</section>
+
+<!-- ================= MÓDULO 3 ================= -->
+<section class="mod part" id="linkage">
+  <div class="modhead"><span class="modnum">Módulo 3</span><div><h2>Ligação gênica (linkage), crossing-over e mapas genéticos</h2><p>Construído a partir da Tarefa de Ligação Gênica (11 questões e respostas comentadas). Não havia slides deste tema no material; por isso a teoria abaixo junta o que as questões e resoluções ensinam com o complemento necessário para entendê-las.</p></div></div>
+
+  <h3>3.1 O que é ligação gênica</h3>
+  <div class="box def"><div class="tag">Definição (Unicamp, tarefa questão 5)</div>
+  <p>Dois locos gênicos estão em <strong><em>linkage</em></strong> quando <strong>não apresentam segregação independente</strong>, ou seja, estão <strong>no mesmo par de cromossomos homólogos</strong> e tendem a ser herdados juntos.</p></div>
+  <p>A 2ª lei de Mendel só vale para genes em <strong>cromossomos diferentes</strong>. Na meiose, cada cromossomo vai para um lado de forma independente dos outros, então os alelos de genes em cromossomos diferentes se misturam livremente. Mas genes no <em>mesmo</em> cromossomo estão fisicamente presos à mesma molécula de DNA: vão juntos para o mesmo gameta… a não ser que o <strong>crossing-over</strong> os separe.</p>
+  <div class="box analog"><div class="tag">Analogia (a própria UNESP 2023 usa)</div>
+  <p>Cada cromossomo é uma <strong>rodovia</strong>; as cidades às suas margens são os <strong>genes</strong> (loci). O cromossomo homólogo é o <strong>acostamento</strong> que corre ao lado: nele, “na altura” de cada cidade, fica o alelo correspondente. Cidades da mesma rodovia viajam juntas; cidades de rodovias diferentes (cromossomos não homólogos) são independentes.</p></div>
+
+  <h4>Comparação central: que gametas um diíbrido AaBb forma?</h4>
+  <div class="tbl"><table>
+    <tr><th>Situação</th><th>Gametas</th><th>Proporções</th></tr>
+    <tr><td><strong>Segregação independente</strong><br>(genes em cromossomos diferentes — espécie 1 da FUVEST-ETE 2022)</td><td>AB, Ab, aB, ab</td><td>25% cada — máxima diversidade</td></tr>
+    <tr><td><strong>Ligação completa</strong><br>(genes colados, sem crossing entre eles), diíbrido cis <span class="g">AB/ab</span></td><td>AB, ab</td><td>50% cada</td></tr>
+    <tr><td><strong>Ligação com crossing-over</strong><br>(espécie 2 da FUVEST-ETE 2022)</td><td>AB, ab (parentais)<br>Ab, aB (recombinantes)</td><td>parentais em <strong>maior</strong> quantidade; recombinantes em <strong>menor</strong> quantidade</td></tr>
+  </table></div>
+  <div class="box key"><div class="tag">Notação com barra</div><p><span class="g">AB/ab</span> significa: um cromossomo carrega <span class="g">A</span> e <span class="g">B</span>; o homólogo carrega <span class="g">a</span> e <span class="g">b</span>. A barra separa os dois homólogos. Escrever só “AaBb” esconde essa informação — e no linkage ela é decisiva.</p></div>
+  <div class="box trap"><div class="tag">Mitose não faz permuta (Unicamp)</div><p>Numa célula somática em <strong>mitose</strong>, as duas cromátides-irmãs de cada cromossomo são <strong>idênticas</strong> (cópias feitas na duplicação do DNA). Então, no esquema correto, um cromossomo aparece com <span class="g">A|A</span> e <span class="g">B|B</span> e o homólogo com <span class="g">a|a</span> e <span class="g">b|b</span>. Cromátides-irmãs com alelos diferentes (<span class="g">A|a</span>) indicariam permuta — algo típico da <strong>meiose</strong>.</p></div>
+</section>
+
+<section class="part" id="crossing">
+  <h3>3.2 Crossing-over (permutação) e taxa de recombinação</h3>
+  <p>Texto-base da tarefa (UEG): durante a <strong>prófase da primeira divisão da meiose</strong>, os cromossomos homólogos podem trocar pedaços entre si (<strong>recombinação ou <em>crossing-over</em></strong>), gerando gametas com combinações de alelos <strong>diferentes das existentes nos cromossomos dos pais</strong>. A soma desses recombinantes é a <strong>taxa (frequência) de recombinação</strong>.</p>
+  <pre class="scheme"><b>Prófase I</b> — homólogos pareados, cada um com 2 cromátides-irmãs (diíbrido cis AB/ab)
+
+  cromátide 1   A ─────────── B
+  cromátide 2   A ─────╲ ╱─── B        ← troca entre cromátides
+  cromátide 3   a ─────╱ ╲─── b          NÃO-IRMÃS (2 e 3)
+  cromátide 4   a ─────────── b
+
+<b>Resultado</b> — 4 cromátides → 4 gametas
+  A ─────────── B    <i>parental</i>
+  A ─────────── b    <u>recombinante</u>
+  a ─────────── B    <u>recombinante</u>
+  a ─────────── b    <i>parental</i></pre>
+  <div class="box key"><div class="tag">A relação que resolve metade das questões</div>
+  <p><strong>Quanto maior a distância entre dois locos, maior a probabilidade de permuta entre eles</strong> (resolução da UEG). Há mais “espaço” para o cruzamento acontecer entre eles. Por isso, a taxa de recombinação é usada como medida de distância:</p>
+  <p class="formula">1% de recombinação = 1 unidade de recombinação (UR) = 1 centimorgan (cM)</p>
+  <p>Taxa de recombinação (%) = (nº de recombinantes ÷ total) × 100</p></div>
+
+  <h4>Calculando gametas a partir da distância</h4>
+  <p>Diíbrido <span class="g">AB/ab</span> (cis) com genes a 20 UR:</p>
+  <pre class="scheme">recombinantes = 20%  →  Ab = 10%   e   aB = 10%
+parentais     = 80%  →  AB = 40%   e   ab = 40%</pre>
+  <p>Regra: os recombinantes somam a distância e se dividem igualmente em dois tipos; os parentais somam o resto e também se dividem em dois.</p>
+
+  <div class="box adv"><div class="tag">Aprofundamento — a “regra da metade”</div><p class="comp-lbl">Complemento para melhor compreensão:</p>
+  <p>Repare no esquema: quando uma célula faz permuta entre A e B, <strong>só 2 das 4 cromátides</strong> ficam recombinantes. Logo, se 40% das células em meiose fizerem crossing entre A e B, a taxa de recombinação será <strong>20%</strong>. Frequência de recombinação = metade da frequência de células com permuta. Pegadinha clássica de vestibulares de elite.</p>
+  <p>Consequência: a taxa de recombinação nunca passa de <strong>50%</strong>. Genes muito distantes no mesmo cromossomo (≈50%) se comportam como se tivessem segregação independente.</p></div>
+</section>
+
+<section class="part" id="cistrans">
+  <h3>3.3 Arranjos cis e trans e o cruzamento-teste</h3>
+  <div class="cols">
+    <div class="card"><h5>Cis (acoplamento)</h5><pre class="scheme" style="margin:6px 0">A ────── B
+a ────── b</pre><p>Dominantes juntos num homólogo, recessivos juntos no outro. <strong>Parentais: AB e ab</strong>.</p></div>
+    <div class="card"><h5>Trans (repulsão)</h5><pre class="scheme" style="margin:6px 0">A ────── b
+a ────── B</pre><p>Cada homólogo tem um dominante e um recessivo. <strong>Parentais: Ab e aB</strong>.</p></div>
+  </div>
+  <p>Os dois diíbridos têm o mesmo genótipo “AaBb”, mas formam gametas em proporções opostas. <strong>O cruzamento-teste revela qual é o arranjo.</strong></p>
+
+  <h4>Receita do cruzamento-teste (usada nas questões 3, 6 e 7)</h4>
+  <ol>
+    <li><strong>Cruze o diíbrido com o duplo-recessivo</strong> (<span class="g">aabb</span>). O birrecessivo só produz gametas <span class="g">ab</span>, que “não geram variabilidade”: por isso os descendentes mostram diretamente os gametas do diíbrido.</li>
+    <li><strong>As duas classes mais numerosas são os parentais</strong> → dizem se o diíbrido é cis ou trans.</li>
+    <li><strong>As duas classes menos numerosas são os recombinantes</strong> → a soma delas ÷ total × 100 = distância em UR.</li>
+  </ol>
+  <pre class="scheme"><b>Exemplo (PUC-SP)</b>   AaBb × aabb
+  AaBb  2,5%    ← gameta AB  → <u>recombinante</u>
+  Aabb 47,5%    ← gameta Ab  → <i>parental</i>
+  aaBb 47,5%    ← gameta aB  → <i>parental</i>
+  aabb  2,5%    ← gameta ab  → <u>recombinante</u>
+
+  parentais Ab e aB   →  diíbrido <b>TRANS</b> (Ab/aB)
+  recombinantes 2,5 + 2,5 = 5%   →  distância = <b>5 UR</b>
+  (se fosse Mendel, 2ª lei: 25% em cada classe)</pre>
+  <div class="box trap"><div class="tag">Pegadinha</div><p>“Recombinante” não é “o que tem os dois dominantes”. Recombinante é a combinação que <strong>não existia</strong> nos cromossomos do diíbrido. Num diíbrido <strong>trans</strong>, <span class="g">AB</span> e <span class="g">ab</span> são os recombinantes! Sempre identifique primeiro os parentais (maioria).</p></div>
+</section>
+
+<section class="part" id="mapas">
+  <h3>3.4 Mapas genéticos</h3>
+  <p>Texto-base (Uesc): a taxa de permutação entre genes ligados é <strong>constante</strong> e depende da distância entre eles. <strong>Alfred Sturtevant</strong> imaginou que seria possível construir <strong>mapas gênicos</strong>, mostrando a ordem dos genes ao longo do cromossomo e as distâncias relativas entre eles. Em 1913, estudando <em>Drosophila melanogaster</em> (mosca-das-frutas), ele montou o primeiro mapa genético (Unicamp 2025).</p>
+  <div class="box key"><div class="tag">Princípio do mapa</div><p>Distâncias entre genes ligados são (aproximadamente) <strong>somáveis</strong>: se a ordem é A–C–B, então <span class="g">d(A,B) ≈ d(A,C) + d(C,B)</span>. A <strong>maior distância</strong> indica os dois genes das <strong>pontas</strong>.</p></div>
+
+  <h4>Método para ordenar genes (questão UEL, passo a passo)</h4>
+  <pre class="scheme">Dados: A-B 32 · A-C 45 · A-D 12 · B-C 13 · B-D 20 · C-D 33
+
+1) Maior valor: A-C = 45  →  A e C são as pontas.
+2) Coloque A no zero e posicione os outros pela distância até A:
+      A = 0     D = 12     B = 32     C = 45
+3) Confira as distâncias que sobraram:
+      D-B = 32 − 12 = 20 ✔    B-C = 45 − 32 = 13 ✔    C-D = 45 − 12 = 33 ✔
+
+   A ────12──── D ──────20────── B ───13─── C          → ordem <b>ADBC</b></pre>
+
+  <h4>Cruzamentos com três genes e o crossing-over duplo (Unicamp 2025)</h4>
+  <p>Com três genes ligados (A, B, C nessa ordem), existem três tipos de classe:</p>
+  <div class="tbl"><table>
+    <tr><th>Classe</th><th>O que aconteceu</th><th>Frequência</th></tr>
+    <tr><td>Parentais</td><td>nenhuma permuta</td><td>a <strong>maior</strong></td></tr>
+    <tr><td>Recombinantes simples</td><td>uma permuta (entre A e B, <em>ou</em> entre B e C)</td><td>intermediária</td></tr>
+    <tr><td>Recombinantes duplos</td><td>duas permutas ao mesmo tempo → só o <strong>gene do meio</strong> troca de lugar</td><td>a <strong>menor</strong> (é pouco provável ocorrerem duas permutas juntas)</td></tr>
+  </table></div>
+  <div class="box exam"><div class="tag">Truque de prova</div><p>Compare a classe parental com a classe <strong>mais rara</strong>: o alelo que mudou é o do <strong>gene do meio</strong>. Ex.: parental <span class="g">ABC</span>, duplo <span class="g">AbC</span> → B está no meio.</p></div>
+</section>
+
+<section class="part" id="m3-fecho">
+  <h3>3.5 Fechamento do Módulo 3</h3>
+  <h4>Pontos de atenção e pegadinhas</h4>
+  <div class="box trap"><div class="tag">Onde os candidatos erram</div>
+  <ul>
+    <li><strong>Parentais = maioria; recombinantes = minoria.</strong> Não confunda com “ter dominantes”.</li>
+    <li><strong>Cis ou trans só se descobre olhando os parentais.</strong></li>
+    <li><strong>Distância em UR só existe para genes no mesmo cromossomo.</strong> Genes em cromossomos não homólogos têm segregação independente (≈50%), não “distância” (alternativa b da UNESP 2023).</li>
+    <li><strong>Genes diferentes no mesmo cromossomo não são alelos</strong>; alelos ficam no mesmo locus dos homólogos (alternativas a e d da UNESP 2023).</li>
+    <li><strong>Crossing-over ocorre na prófase I da meiose</strong>, entre cromátides <strong>não-irmãs</strong> de homólogos — não na mitose, e não entre cromátides-irmãs.</li>
+    <li><strong>Recombinação máxima = 50%.</strong> Frequência de recombinação = metade das células que fizeram permuta.</li>
+    <li><strong>Maior diversidade gamética = segregação independente</strong>, não linkage (FUVEST-ETE 2022).</li>
+  </ul></div>
+  <h4>O que mais cai em prova</h4>
+  <div class="box exam"><div class="tag">Radar do vestibular</div>
+  <ul>
+    <li><strong>Cruzamento-teste</strong> com números de descendentes → taxa de recombinação e arranjo cis/trans.</li>
+    <li><strong>Mapa genético</strong>: ordenar genes a partir de taxas (UEL) ou ler tabela + régua (Uesc).</li>
+    <li><strong>Calcular gametas/descendentes</strong> a partir da distância (UNIFESP, 15 UR → 75 sementes).</li>
+    <li><strong>Três genes</strong> e permuta dupla (Unicamp 2025).</li>
+    <li><strong>Esquemas de cromossomos</strong>: identificar linkage, mitose × meiose (Unicamp) e diversidade gamética (FUVEST).</li>
+    <li><strong>Analogias criativas</strong> (rodovias e cidades — UNESP 2023).</li>
+  </ul></div>
+  <h4>Recomendações de vídeos completos no YouTube</h4>
+  <p class="verified">Todos os links abrem direto no vídeo e foram verificados em 22/09/2026: públicos, disponíveis e reproduzíveis.</p>
+  <div class="videos">
+    <a class="vid" href="https://www.youtube.com/watch?v=iLwHBzxUSA0" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Linkage (parte 1) — Aula 16, Módulo II: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 15:39</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=WrlZoChXqyc" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Linkage (parte 2) — Aula 17, Módulo II: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 20:44</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=zPIVGSntAno" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Linkage (com exercício) — Módulo II: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 23:54</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=F6XXUuUYyow" target="_blank" rel="noopener"><span class="play">Assistir</span><b>Mapas Genéticos (Linkage) — Aula 18, Módulo II: Genética</b><small>Prof. Guilherme Goulart (Prof. Gui) · 10:33</small></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=MVqHYMeLq6Y" target="_blank" rel="noopener"><span class="play">Resolução</span><b>Genética: LINKAGE — Prof Gui Resolve (questões)</b><small>Prof. Guilherme Goulart (Prof. Gui) · 57:35</small></a>
+  </div>
+</section>
+
+<!-- ================= QUESTÕES ================= -->
+<section class="mod part" id="q-interacao">
+  <div class="modhead"><span class="modnum">Treino</span><div><h2>Questões resolvidas: Interação gênica</h2><p>Todas as questões da Tarefa de Interação Gênica (e a Unicamp dos slides). Tente resolver antes de abrir a resolução.</p></div></div>
+
+  <div class="q">
+    <div class="src">Questão 1 · Unicamp (também nos slides 16–17)</div>
+    <p>Nos cães labradores, apenas dois genes autossômicos condicionam as cores preta, chocolate e dourada da pelagem. A produção do pigmento preto é determinada pelo alelo dominante <span class="g">B</span> e a do pigmento chocolate, pelo alelo recessivo <span class="g">b</span>. O gene <span class="g">E</span> controla a deposição de pigmento na pelagem; a cor dourada é determinada pelo genótipo <span class="g">ee</span>. Uma fêmea dourada cruzou com um macho chocolate e teve filhotes pretos e chocolates, na mesma proporção. Quando essa mesma fêmea cruzou com um macho preto, nasceram oito filhotes: um chocolate, três pretos e quatro dourados.</p>
+    <p>a) Qual o genótipo da fêmea mãe? Identifique e explique o tipo de interação gênica.<br>b) Quais são os genótipos do cão preto (pai) e do seu filhote chocolate? Mostre como chegou à resposta.</p>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><strong>Montando o “dicionário”:</strong> preto = <span class="g">E_B_</span>; chocolate = <span class="g">E_bb</span>; dourado = <span class="g">ee_ _</span>.</p>
+      <p><strong>a)</strong> A fêmea é dourada → <span class="g">ee</span>. Com o macho chocolate (<span class="g">bb</span>), nasceram filhotes <strong>pretos</strong>: eles têm <span class="g">B</span>, que só pode ter vindo da mãe (o pai só tem <span class="g">b</span>). Nasceram também <strong>chocolates</strong> (<span class="g">bb</span>): a mãe também passa <span class="g">b</span>. Logo, a mãe é <span class="g">Bb</span>.</p>
+      <p><span class="gab">Mãe: eeBb</span></p>
+      <p>Tipo de interação: <strong>epistasia recessiva</strong>. O gene <span class="g">e</span>, quando em dose dupla (<span class="g">ee</span>), impede a deposição de pigmento no pelo e inibe a expressão do outro par (B/b): o animal fica dourado qualquer que seja o seu B/b. (A tarefa descreve isso como: “interação gênica é quando um ou mais genes, localizados ou não no mesmo cromossomo, agem conjuntamente na determinação de uma característica”.)</p>
+      <p><strong>b)</strong> O pai é preto → <span class="g">E_B_</span>.</p>
+      <ul>
+        <li>Teve filhotes <strong>dourados</strong> (<span class="g">ee</span>) → ele também passou <span class="g">e</span> → é <span class="g">Ee</span>.</li>
+        <li>Teve filhote <strong>chocolate</strong> (<span class="g">bb</span>) → ele também passou <span class="g">b</span> → é <span class="g">Bb</span>.</li>
+      </ul>
+      <p>O filhote chocolate precisa de <span class="g">bb</span> e pelo menos um <span class="g">E</span>; como a mãe é <span class="g">ee</span>, ele recebeu obrigatoriamente <span class="g">e</span> dela → <span class="g">Eebb</span>.</p>
+      <p><span class="gab">Pai: EeBb · Filhote chocolate: Eebb</span></p>
+      <p><strong>Prova real:</strong> <span class="g">EeBb × eeBb</span> → P(E_) = 1/2; P(B_) = 3/4; P(bb) = 1/4. Pretos = 1/2 · 3/4 = 3/8; chocolates = 1/2 · 1/4 = 1/8; dourados = 1/2 = 4/8. Em 8 filhotes: <strong>3 pretos, 1 chocolate, 4 dourados</strong> — exatamente o observado.</p>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 2 · UERJ 2025</div>
+    <p>No fenômeno esquematizado, o gene B inibe o efeito fenotípico produzido pelo gene A.</p>
+    <pre class="scheme">   Par de cromossomos homólogos
+      ┌───┐      ┌───┐
+  ┌──►│ A │      │ A │◄──┐
+  │   │   │      │   │   │     setas saindo de B e
+  │   │ B │      │ B │   │     apontando para A
+  └───┤   │      │   ├───┘
+      └───┘      └───┘</pre>
+    <p>Nomeie esse fenômeno. Em seguida, explique a diferença entre ele e um caso de herança dominante.</p>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Epistasia</span></p>
+      <p>É a interação gênica em que um gene inibe a expressão de outro gene situado em um <strong>locus diferente</strong>, localizado ou não no mesmo cromossomo (aqui, no mesmo). <strong>Na herança dominante</strong>, os genes envolvidos são <strong>alelos</strong>: estão no <strong>mesmo locus</strong> de cromossomos homólogos e codificam o mesmo tipo de característica; um único alelo dominante basta para expressar seu fenótipo. <strong>Na epistasia</strong>, um gene (dominante ou recessivo) tem seu fenótipo inibido por <strong>outro gene, não alelo</strong> (dominante ou recessivo).</p>
+      <div class="box fix" style="margin-bottom:0"><div class="tag">Erro de digitação na resposta da tarefa</div><p>A resposta diz “localizado ou não no <em>último</em> cromossomo”; o correto é “no <strong>mesmo</strong> cromossomo”.</p></div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 3 · UEL 2024</div>
+    <p>(O enunciado parte do “mito da caverna” de Platão e da visão por cones e bastonetes, e depois trata da cor dos olhos.) A cor dos olhos é dada pela quantidade de melanina na íris, resultado da interação de vários genes. Dois genes contribuem: o gene <strong>GEY</strong>, com os alelos <span class="g">G<sup>V</sup></span> (dominante, cor verde) e <span class="g">G<sup>A</sup></span> (recessivo, cor azul), e o gene <strong>BEY</strong>, com os alelos <span class="g">B<sup>M</sup></span> (dominante, cor marrom/castanha) e <span class="g">B<sup>A</sup></span> (recessivo, cor azul). Entre eles ocorre <strong>epistasia dominante</strong> do alelo <span class="g">B<sup>M</sup></span> sobre os alelos do gene GEY.</p>
+    <p>I. Um indivíduo que contenha o alelo <span class="g">B<sup>M</sup></span> tem olhos castanhos, pois esse alelo é dominante sobre <span class="g">B<sup>A</sup></span> e epistático sobre <span class="g">G<sup>V</sup></span> e <span class="g">G<sup>A</sup></span>.<br>
+    II. Um indivíduo <span class="g">B<sup>A</sup>B<sup>A</sup> G<sup>V</sup>G<sup>A</sup></span> tem olhos verdes.<br>
+    III. Os alelos <span class="g">G<sup>V</sup></span> e <span class="g">G<sup>A</sup></span> do gene GEY apresentam sequências de DNA idênticas.<br>
+    IV. Os alelos <span class="g">B<sup>A</sup></span> e <span class="g">G<sup>A</sup></span> pertencem ao mesmo gene, ou seja, são homozigotos, consequentemente compartilham os mesmos nucleotídeos.</p>
+    <ul class="alts"><li>a) Somente I e II.</li><li>b) Somente I e IV.</li><li>c) Somente III e IV.</li><li>d) Somente I, II e III.</li><li>e) Somente II, III e IV.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Alternativa A</span> <small style="color:var(--muted)">(resolução própria — o arquivo não trazia o gabarito desta questão)</small></p>
+      <ul>
+        <li><strong>I — correta.</strong> Basta um <span class="g">B<sup>M</sup></span> (dominante e epistático) para olhos castanhos, qualquer que seja o GEY.</li>
+        <li><strong>II — correta.</strong> Sem <span class="g">B<sup>M</sup></span> (é <span class="g">B<sup>A</sup>B<sup>A</sup></span>), o GEY se manifesta; <span class="g">G<sup>V</sup></span> é dominante → verde.</li>
+        <li><strong>III — incorreta.</strong> Alelos são versões <em>diferentes</em> de um gene; têm sequências de DNA diferentes (por isso produzem efeitos diferentes).</li>
+        <li><strong>IV — incorreta.</strong> <span class="g">B<sup>A</sup></span> é alelo do gene BEY e <span class="g">G<sup>A</sup></span> do gene GEY: são genes diferentes. “Homozigoto” descreve um indivíduo com dois alelos iguais, não uma relação entre alelos.</li>
+      </ul>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 4 · FUVEST 2018</div>
+    <p>Nos labradores, a cor da pelagem depende da interação entre dois genes: um no cromossomo 11 (<span class="g">B</span>/<span class="g">b</span>) e outro no cromossomo 5 (<span class="g">E</span>/<span class="g">e</span>). <span class="g">B</span> → síntese de pigmento preto; <span class="g">b</span> → pigmento chocolate; <span class="g">E</span> → deposição do pigmento nos pelos; <span class="g">e</span> → impede a deposição. Dentre 36 cães resultantes de cruzamentos de cães heterozigóticos nos dois locos com cães duplo-homozigóticos recessivos, quantos pretos, chocolates e dourados, respectivamente, são esperados?</p>
+    <ul class="alts"><li>a) 0, 0 e 36.</li><li>b) 9, 9 e 18.</li><li>c) 18, 9 e 9.</li><li>d) 18, 0 e 18.</li><li>e) 18, 18 e 0.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Alternativa B</span></p>
+      <p>Pelagens: <span class="g">B_E_</span> preto; <span class="g">bbE_</span> chocolate; <span class="g">B_ee</span> ou <span class="g">bbee</span> dourado.</p>
+      <p>Cruzamento <strong><span class="g">BbEe × bbee</span></strong> (é um cruzamento-teste: o duplo-recessivo só dá gametas <span class="g">be</span>). O diíbrido forma 4 gametas em 1/4 cada (genes em cromossomos diferentes → segregação independente):</p>
+      <pre class="scheme">BE × be → <b>BbEe</b>  preto      1/4 × 36 =  9
+Be × be → <b>Bbee</b>  dourado    1/4 × 36 =  9 ┐
+bE × be → <b>bbEe</b>  chocolate  1/4 × 36 =  9 │ dourados = 18
+be × be → <b>bbee</b>  dourado    1/4 × 36 =  9 ┘</pre>
+      <p>Resultado: <strong>9 pretos, 9 chocolates e 18 dourados</strong>.</p>
+      <div class="box fix" style="margin-bottom:0"><div class="tag">Erro de digitação na resposta da tarefa</div><p>Onde se lê “P = BeEe × bbee”, leia <strong>BbEe × bbee</strong>.</p></div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 5 · UFRGS 2024</div>
+    <p>Preencha, na ordem, as lacunas sobre padrões de hereditariedade não mendelianos:</p>
+    <ol>
+      <li>Os grupos sanguíneos ABO em humanos são determinados por ____.</li>
+      <li>Um cruzamento em que os híbridos F1 têm fenótipo intermediário entre as variedades parentais indica ____.</li>
+      <li>Denomina-se ____ o mecanismo em que o gene de um lócus altera a expressão fenotípica de um gene de outro lócus.</li>
+      <li>Sintomas múltiplos da fibrose cística são causados por genes com efeitos fenotípicos múltiplos: ____.</li>
+      <li>A ____ caracteriza-se pela expressão de dois ou mais genes sobre o mesmo caráter fenotípico.</li>
+    </ol>
+    <ul class="alts">
+      <li>a) polialelia — dominância incompleta — epistasia — poligenia — pleiotropia</li>
+      <li>b) polialelia — dominância incompleta — epistasia — pleiotropia — poligenia</li>
+      <li>c) dominância incompleta — epistasia — polialelia — poligenia — pleiotropia</li>
+      <li>d) epistasia — dominância incompleta — polialelia — pleiotropia — poligenia</li>
+      <li>e) poligenia — polialelia — epistasia — dominância incompleta — pleiotropia</li>
+    </ul>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Alternativa B</span></p>
+      <ol>
+        <li><strong>Polialelia</strong>: três alelos múltiplos que, dois a dois, determinam A, B, AB e O.</li>
+        <li><strong>Dominância incompleta</strong>: nenhum alelo domina totalmente → híbrido intermediário.</li>
+        <li><strong>Epistasia</strong>: genes capazes de interromper rotas metabólicas, impedindo a expressão de genes não alelos.</li>
+        <li><strong>Pleiotropia</strong>: efeito múltiplo da expressão de um gene.</li>
+        <li><strong>Poligenia</strong>: vários pares de genes atuando sobre a mesma característica.</li>
+      </ol>
+      <p><strong>Estratégia:</strong> a lacuna 1 já elimina c, d, e; entre a e b, basta saber que “efeitos múltiplos de um gene” é pleiotropia.</p>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 6 · Gatos siameses</div>
+    <p>Em gatos da raça siamesa, uma única mutação genética está associada simultaneamente à coloração característica da pelagem, à maior predisposição a estrabismo e à sensibilidade aumentada à temperatura corporal. Esse fenômeno, no qual um único gene influencia múltiplas características fenotípicas distintas, é denominado:</p>
+    <ul class="alts"><li>a) codominância</li><li>b) polialelia</li><li>c) interação gênica</li><li>d) pleiotropia</li><li>e) epistasia</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Alternativa D</span> <small style="color:var(--muted)">(resolução própria — o arquivo não trazia o gabarito)</small></p>
+      <p>“Um único gene influencia múltiplas características” é a definição de <strong>pleiotropia</strong>. Interação gênica e epistasia são o contrário (vários genes, uma característica); polialelia é sobre o número de alelos; codominância, sobre a relação entre dois alelos.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="mod part" id="q-sangue">
+  <div class="modhead"><span class="modnum">Treino</span><div><h2>Questões resolvidas: Sistemas sanguíneos</h2><p>As questões que aparecem nos slides de ABO e Rh.</p></div></div>
+
+  <div class="q">
+    <div class="src">FCMSCSP 2021</div>
+    <p>Para descobrir seu grupo sanguíneo do sistema ABO, Pablo fez testes com o sangue de dois amigos: Guilherme (grupo A) e Leonardo (grupo B). Pablo separou o plasma do seu sangue e o misturou, em uma lâmina, com uma gota do sangue de Guilherme; em outra lâmina, misturou seu plasma com uma gota do sangue de Leonardo. Ocorreu aglutinação apenas na lâmina com o sangue de Guilherme. Pablo pertence ao grupo sanguíneo:</p>
+    <ul class="alts"><li>A) AB e apresenta aglutininas anti-A e anti-B.</li><li>B) B e apresenta aglutinina anti-A.</li><li>C) O e apresenta aglutininas anti-A e anti-B.</li><li>D) A e apresenta aglutinina anti-B.</li><li>E) AB e não apresenta aglutininas anti-A e anti-B.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Alternativa B</span></p>
+      <pre class="scheme">Plasma de Pablo  +  hemácias de Guilherme (antígeno <b>A</b>)  →  AGLUTINOU
+   ⇒ o plasma de Pablo TEM <b>anti-A</b>
+
+Plasma de Pablo  +  hemácias de Leonardo (antígeno <b>B</b>)   →  não aglutinou
+   ⇒ o plasma de Pablo NÃO tem <b>anti-B</b>
+
+Só anti-A no plasma  ⇒  Pablo é do grupo <b>B</b></pre>
+      <p><strong>Cuidado:</strong> aqui o teste usa o <em>plasma</em> de Pablo (anticorpos dele) contra hemácias conhecidas — é o inverso da tipagem comum, em que se usa soro conhecido contra as hemácias do paciente. Eliminação: a alternativa A é impossível (quem é AB não tem aglutininas anti-A nem anti-B); a E não explicaria a aglutinação observada; um O (C) teria aglutinado as duas lâminas; um A (D) teria aglutinado só a de Leonardo.</p>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">UNESP 2021</div>
+    <p>Além dos sistemas ABO e Rh, existe o sistema MN, definido pelos antígenos M e N na superfície das hemácias e condicionado por dois alelos de um gene. Um casal possui os alelos marcados na tabela:</p>
+    <div class="tbl"><table>
+      <tr><th></th><th class="c">I<sup>A</sup></th><th class="c">I<sup>B</sup></th><th class="c">i</th><th class="c">L<sup>M</sup></th><th class="c">L<sup>N</sup></th><th class="c">R</th><th class="c">r</th></tr>
+      <tr><td><strong>Mulher</strong></td><td class="c">✓</td><td class="c">✓</td><td class="c"></td><td class="c">✓</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td></tr>
+      <tr><td><strong>Homem</strong></td><td class="c">✓</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"></td><td class="c">✓</td></tr>
+    </table></div>
+    <p>Considerando os sistemas ABO, Rh e MN, o primeiro descendente desse casal terá um fenótipo específico que será uma dentre quantas possibilidades?</p>
+    <ul class="alts"><li>a) 7.</li><li>b) 16.</li><li>c) 12.</li><li>d) 24.</li><li>e) 8.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans">
+      <p><span class="gab">Alternativa C</span></p>
+      <p><strong>1) Genótipos:</strong> mulher <span class="g">I<sup>A</sup>I<sup>B</sup> L<sup>M</sup>L<sup>M</sup> Rr</span>; homem <span class="g">I<sup>A</sup>i L<sup>M</sup>L<sup>N</sup> rr</span>. (Quem tem só um alelo marcado num sistema é homozigoto para ele.)</p>
+      <p><strong>2) Cada sistema separadamente:</strong></p>
+      <div class="tbl"><table>
+        <tr><th>Sistema</th><th>Cruzamento</th><th>Fenótipos possíveis nos filhos</th><th class="c">Nº</th></tr>
+        <tr><td>ABO</td><td><span class="g">I<sup>A</sup>I<sup>B</sup> × I<sup>A</sup>i</span></td><td>A (<span class="g">I<sup>A</sup>I<sup>A</sup></span>, <span class="g">I<sup>A</sup>i</span>), AB (<span class="g">I<sup>A</sup>I<sup>B</sup></span>), B (<span class="g">I<sup>B</sup>i</span>)</td><td class="c">3</td></tr>
+        <tr><td>MN</td><td><span class="g">L<sup>M</sup>L<sup>M</sup> × L<sup>M</sup>L<sup>N</sup></span></td><td>M, MN</td><td class="c">2</td></tr>
+        <tr><td>Rh</td><td><span class="g">Rr × rr</span></td><td>Rh<sup>+</sup>, Rh<sup>−</sup></td><td class="c">2</td></tr>
+      </table></div>
+      <p><strong>3) Combinando</strong> (princípio multiplicativo): 3 × 2 × 2 = <strong>12 fenótipos possíveis</strong>.</p>
+      <div class="box fix" style="margin-bottom:0"><div class="tag">Atenção à resolução do slide</div><p>O slide conclui com “1/3 × 1/2 × 1/2 = 1/12”. O número 12 está certo, mas a conta como <em>probabilidade</em> não: os três fenótipos ABO <strong>não</strong> são igualmente prováveis. Em <span class="g">I<sup>A</sup>I<sup>B</sup> × I<sup>A</sup>i</span>, P(A) = 1/2, P(AB) = 1/4, P(B) = 1/4. A questão pede o <strong>número de possibilidades</strong>, e para isso basta contar (3 × 2 × 2). Se pedissem, por exemplo, P(filho A, M, Rh<sup>+</sup>) = 1/2 × 1/2 × 1/2 = 1/8. Lembre também do erro da tabela MN do slide (N e MN trocados — ver seção 2.4).</p></div>
+    </div></details>
+  </div>
+</section>
+
+<section class="mod part" id="q-ligacao">
+  <div class="modhead"><span class="modnum">Treino</span><div><h2>Questões resolvidas: Ligação gênica</h2><p>As 11 questões da Tarefa de Ligação Gênica, com o gabarito oficial e a resolução completa. A tarefa também recomenda fazer as questões 1 a 12 do livro 3, p. 66 a 68.</p></div></div>
+
+  <div class="q">
+    <div class="src">Questão 1 · UEG</div>
+    <p>A figura mostra um par de homólogos com três genes: <strong>A</strong> perto de uma extremidade; <strong>B</strong> e <strong>C</strong> próximos entre si, perto da outra extremidade (C logo abaixo de B). Sobre as taxas de recombinação, verifica-se que a taxa entre:</p>
+    <pre class="scheme">  A │        │ A
+    │        │
+    │        │
+  B │        │ B
+  C │        │ C
+   par de homólogos</pre>
+    <ul class="alts"><li>a) A, B e C é randomizada e inespecífica.</li><li>b) A e C é maior que entre A e B.</li><li>c) A e B é equivalente à taxa entre B e C.</li><li>d) A e B é menor que entre B e C.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa B</span></p><p>Quanto maior a distância entre os locos, maior a probabilidade de permuta. A está mais longe de C do que de B → taxa A–C &gt; taxa A–B. (c e d erram porque B–C é a menor distância; a erra porque a taxa depende da distância, não é aleatória.)</p></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 2 · Uesc</div>
+    <p>O quadro mostra as taxas de permutação experimentais e um mapa (régua em UR de 0 a 50):</p>
+    <div class="tbl"><table>
+      <tr><th>Gene</th><th class="c">A</th><th class="c">B</th><th class="c">C</th></tr>
+      <tr><td><strong>A</strong></td><td class="c">—</td><td class="c">X</td><td class="c">15%</td></tr>
+      <tr><td><strong>B</strong></td><td class="c">20%</td><td class="c">—</td><td class="c">Y</td></tr>
+      <tr><td><strong>C</strong></td><td class="c">15%</td><td class="c">5%</td><td class="c">—</td></tr>
+    </table></div>
+    <pre class="scheme">Cromossomo:   Gene A (10)              Gene C (25)  Gene B (30)
+UR:  0────5────10────15────20────25────30────35────40────45────50</pre>
+    <p>Os valores de X e Y são, respectivamente:</p>
+    <ul class="alts"><li>a) 5% e 20%</li><li>b) 15% e 20%</li><li>c) 15% e 5%</li><li>d) 20% e 15%</li><li>e) 20% e 5%</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa E</span></p>
+    <ul><li><strong>Pela tabela:</strong> a tabela é simétrica (A–B = B–A). X é a taxa A–B, que aparece na linha B como 20% → <strong>X = 20%</strong>. Y é a taxa B–C, que aparece na linha C como 5% → <strong>Y = 5%</strong>.</li>
+    <li><strong>Pelo cromossomo:</strong> C está em 25 e B em 30 → 5 UR = 5%. A está em 10 e B em 30 → 20 UR = 20%. Confere com a tabela.</li></ul></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 3 · PUC-SP</div>
+    <p>O cruzamento entre um heterozigoto <span class="g">AaBb</span> e um homozigoto recessivo <span class="g">aabb</span> produziu: <span class="g">AaBb</span> 2,5%; <span class="g">Aabb</span> 47,5%; <span class="g">aaBb</span> 47,5%; <span class="g">aabb</span> 2,5%. Assinale a única afirmação <strong>incorreta</strong>:</p>
+    <ul class="alts"><li>a) O resultado não está de acordo com a segunda lei de Mendel.</li><li>b) No caso de herança mendeliana, o resultado esperado seria de 25% para cada classe.</li><li>c) Os genes localizam-se no mesmo cromossomo, a uma distância de 5 unidades de recombinação.</li><li>d) O heterozigoto produz gametas Ab e aB por permutação ou crossing-over.</li><li>e) O heterozigoto apresenta constituição TRANS.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa D (a incorreta)</span></p>
+    <p>É um cruzamento-teste: as classes refletem os gametas do diíbrido. Parentais (maioria): <span class="g">Ab</span> e <span class="g">aB</span>, 47,5% cada → diíbrido <strong>trans</strong> (<span class="g">Ab/aB</span>) — e está certa. Recombinantes (minoria): <span class="g">AB</span> e <span class="g">ab</span>, 2,5% cada = 5% → 5 UR — c está certa. A <strong>d</strong> erra porque <span class="g">Ab</span> e <span class="g">aB</span> são <strong>parentais</strong> (formados sem permuta); os formados por crossing são <span class="g">AB</span> e <span class="g">ab</span>. a e b estão certas (Mendel daria 25% em cada).</p></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 4 · UEL</div>
+    <p>Quatro genes A, B, C e D, no mesmo cromossomo, têm frequências de recombinação: A-B 32%; A-C 45%; A-D 12%; B-C 13%; B-D 20%; C-D 33%. A sequência mais provável é:</p>
+    <ul class="alts"><li>a) ABCD.</li><li>b) ABDC.</li><li>c) ACDB.</li><li>d) ADBC.</li><li>e) ADCB.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa D</span></p><p>A maior taxa (45%, A–C) indica que A e C estão nas pontas. A partir de A: D a 12, B a 32, C a 45 → <strong>A–D–B–C</strong>. Conferência: D–B = 20 ✔, B–C = 13 ✔, C–D = 33 ✔. (Passo a passo completo na seção 3.4.)</p></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 5 · Unicamp</div>
+    <p>Considere um indivíduo heterozigoto para dois locos gênicos em <em>linkage</em> (sem segregação independente). A representação dos cromossomos de uma de suas células somáticas em divisão <strong>mitótica</strong> é:</p>
+    <pre class="scheme">a) cromossomo grande 1: A|A (cima), B|B (baixo) · grande 2: a|a, b|b · 2 cromossomos pequenos sem genes marcados
+b) grande 1: A|a, B|b · grande 2: A|a, B|b · 2 pequenos
+c) grande 1: A|a · grande 2: A|a · pequenos: B|b e B|b
+d) grande 1: A|A · grande 2: a|a · pequenos: B|B e b|b</pre>
+    <p style="font-size:14px;color:var(--muted)">(Descrição fiel das figuras de cada alternativa; a barra separa as duas cromátides-irmãs.)</p>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa A</span></p>
+    <ul><li>É <strong>mitose</strong> → não há permuta → as cromátides-irmãs são <strong>idênticas</strong> (elimina b e c, que têm A|a no mesmo cromossomo).</li>
+    <li>Os genes estão em <strong>linkage</strong> → A e B no <strong>mesmo</strong> par de homólogos (elimina c e d, em que B/b estão em outro par).</li>
+    <li>Sobra a <strong>a</strong>: um homólogo com A e B, o outro com a e b (arranjo cis), cada um com duas cromátides iguais.</li></ul></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 6 · UPE</div>
+    <p>Do cruzamento de um homozigoto <span class="g">aabb</span> com um homozigoto <span class="g">AABB</span> obteve-se uma geração que, retrocruzada com o parental duplamente recessivo, resultou em: <span class="g">AB/ab</span> 637; <span class="g">ab/ab</span> 643; <span class="g">Ab/ab</span> 162; <span class="g">aB/ab</span> 158. A taxa de recombinação entre a e b é de:</p>
+    <ul class="alts"><li>a) 10%.</li><li>b) 20%.</li><li>c) 5%.</li><li>d) 0,5%.</li><li>e) 0,25%.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa B</span></p>
+    <pre class="scheme">Total          = 637 + 643 + 162 + 158 = <b>1600</b>
+Parentais      = AB/ab 637 + ab/ab 643  (maioria)
+Recombinantes  = Ab/ab 162 + aB/ab 158  = <b>320</b>
+Taxa           = 320 / 1600 × 100 = <b>20%</b>  →  20 UR</pre>
+    <p>Coerente com a origem da F1: <span class="g">AABB × aabb</span> gera <span class="g">AB/ab</span> (cis), cujos parentais são AB e ab — exatamente as classes mais numerosas. O retrocruzamento com o duplo-recessivo funciona como cruzamento-teste.</p></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 7 · UFU</div>
+    <p>Em camundongos, <span class="g">e</span> (recessivo) produz pelos encrespados e <span class="g">E</span>, pelos normais; <span class="g">a</span> (recessivo) produz albino e <span class="g">A</span>, selvagem. Diíbridos cruzados com albinos de pelos encrespados deram: 79 encrespados e selvagens; 121 encrespados e albinos; 125 normais e selvagens; 75 normais e albinos. Qual esquema representa a posição dos genes no diíbrido?</p>
+    <pre class="scheme">A)  E ┼   ┼ e        B)  e ┼   ┼ E        C)  e ┼   ┼ e        D)  E ┼   ┼ E
+    A ┼   ┼ a            A ┼   ┼ a            A ┼   ┼ A            A ┼   ┼ a</pre>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa A</span></p>
+    <p>Cruzamento-teste (<span class="g">EeAa × eeaa</span>). Traduzindo cada classe no gameta do diíbrido:</p>
+    <div class="tbl"><table>
+      <tr><th>Fenótipo</th><th>Genótipo</th><th>Gameta do diíbrido</th><th class="c">Nº</th><th>Tipo</th></tr>
+      <tr><td>encrespado, albino</td><td><span class="g">eeaa</span></td><td>ea</td><td class="c">121</td><td>parental</td></tr>
+      <tr><td>normal, selvagem</td><td><span class="g">EeAa</span></td><td>EA</td><td class="c">125</td><td>parental</td></tr>
+      <tr><td>encrespado, selvagem</td><td><span class="g">eeAa</span></td><td>eA</td><td class="c">79</td><td>recombinante</td></tr>
+      <tr><td>normal, albino</td><td><span class="g">Eeaa</span></td><td>Ea</td><td class="c">75</td><td>recombinante</td></tr>
+    </table></div>
+    <p>Parentais <span class="g">EA</span> e <span class="g">ea</span> → diíbrido <strong>cis</strong> (<span class="g">EA/ea</span>) = esquema A. B é trans; C e D não são duplo-heterozigotos.</p>
+    <p><strong>Bônus:</strong> distância = (79 + 75) / 400 × 100 = <strong>38,5 UR</strong>.</p></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 8 · UNESP 2023</div>
+    <p>Rio Claro, Araraquara e São José do Rio Preto ficam às margens da rodovia Washington Luiz; Botucatu, Bauru e Araçatuba, às margens da rodovia Marechal Rondon. Considere que as rodovias representam <strong>dois cromossomos não homólogos</strong> de células germinativas de um organismo diploide, que as cidades ocupam loci gênicos, que a distância entre cidades é proporcional à distância em UR (centimorgans) e que os homólogos seriam os acostamentos de cada rodovia.</p>
+    <pre class="scheme">Washington Luiz (preta):   S. J. do Rio Preto ──────── Araraquara ─── Rio Claro
+Marechal Rondon (vermelha): Araçatuba ────────── Bauru ──── Botucatu
+(no mapa: Rio Claro–Araraquara é um trecho curto; Araçatuba–Botucatu é o trecho mais longo)</pre>
+    <ul class="alts"><li>a) Botucatu, Bauru e Araçatuba são alelos de um mesmo gene, assim como Rio Claro, Araraquara e São José do Rio Preto são alelos de outro gene.</li><li>b) a distância, em UR, entre Rio Claro e Botucatu é menor que a distância, em UR, entre Bauru e São José do Rio Preto.</li><li>c) a probabilidade de permutação entre os alelos de Botucatu e Araçatuba é maior que a probabilidade de permutação entre os alelos de Rio Claro e Araraquara.</li><li>d) Araraquara e Bauru são alelos de um mesmo gene, e esse gene está localizado entre aquele cujos alelos são Botucatu e Rio Claro e outro cujos alelos são Araçatuba e São José do Rio Preto.</li><li>e) os genes Botucatu, Bauru e Araçatuba apresentam a mesma sequência de nucleotídeos, diferente da compartilhada por Rio Claro, Araraquara e São José do Rio Preto.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa C</span></p>
+    <ul>
+      <li><strong>c — correta:</strong> a distância é proporcional à taxa de recombinação. Botucatu e Araçatuba estão bem mais distantes entre si do que Rio Claro e Araraquara → maior probabilidade de permuta.</li>
+      <li><strong>a — errada:</strong> cidades da mesma rodovia são <strong>genes diferentes</strong> (loci diferentes) no mesmo cromossomo; alelos estariam no acostamento, na mesma altura.</li>
+      <li><strong>b — errada:</strong> Rio Claro e Botucatu estão em cromossomos <strong>não homólogos</strong>: segregam de forma independente; não existe distância em UR entre eles.</li>
+      <li><strong>d — errada:</strong> Araraquara e Bauru também estão em rodovias (cromossomos) diferentes → não são alelos.</li>
+      <li><strong>e — errada:</strong> genes diferentes têm sequências diferentes.</li>
+    </ul></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 9 · FUVEST-ETE 2022</div>
+    <p>Duas espécies de mamíferos têm os genes A (alelos A/a) e B (alelos B/b). Na espécie 1, eles estão em autossomos diferentes; na espécie 2, estão próximos, no mesmo braço de um cromossomo (figura: espécie 1 com A/a num par e B/b em outro par; espécie 2 com A sobre B num homólogo e a sobre b no outro). É correto afirmar que, nos gametas da espécie 1 em relação aos da espécie 2, os alelos dos genes A e B:</p>
+    <ul class="alts"><li>a) produzirão maior diversidade gamética.</li><li>b) serão ambos recessivos ou dominantes.</li><li>c) segregarão de forma dependente.</li><li>d) serão produto de recombinação entre os dois genes.</li><li>e) serão mais suscetíveis à mutagênese.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa A</span></p><p>Na espécie 1, a segregação é independente: AB, Ab, aB, ab em 25% cada. Na espécie 2, os genes estão muito próximos (<span class="g">AB/ab</span>): quase só AB e ab, raros recombinantes. Logo, a espécie 1 tem <strong>maior diversidade gamética</strong>. (c descreve a espécie 2; d confunde segregação independente com permuta; b e e não têm relação com a posição dos genes.)</p></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 10 · Unicamp 2025</div>
+    <p>Em 1913, Sturtevant estabeleceu o primeiro mapa genético de <em>Drosophila melanogaster</em>. No terceiro cromossomo, os alelos da cor dos olhos (A/a), da cor do corpo (B/b) e das cerdas (C/c) estão ligados <strong>nessa sequência</strong>. Uma mosca macho produziu os gametas:</p>
+    <div class="tbl"><table>
+      <tr><th>Gameta</th><td class="c">ABC</td><td class="c">abc</td><td class="c">ABc</td><td class="c">abC</td><td class="c">AbC</td><td class="c">aBc</td><td class="c">Abc</td><td class="c">aBC</td></tr>
+      <tr><th>Quantidade</th><td class="c">3453</td><td class="c">3453</td><td class="c">476</td><td class="c">476</td><td class="c">6</td><td class="c">6</td><td class="c">134</td><td class="c">134</td></tr>
+    </table></div>
+    <p>É correto afirmar que os cromossomos recombinantes apresentam:</p>
+    <ul class="alts"><li>a) crossing-over único. A distância A/a–B/b é maior que a distância B/b–C/c.</li><li>b) crossing-over único ou duplo. A distância A/a–B/b é maior que a distância B/b–C/c.</li><li>c) crossing-over único. A distância A/a–B/b é menor que a distância B/b–C/c.</li><li>d) crossing-over único ou duplo. A distância A/a–B/b é menor que a distância B/b–C/c.</li></ul>
+    <details><summary>Ver resolução</summary><div class="ans"><p><span class="gab">Alternativa D</span></p>
+    <pre class="scheme">Parentais (maioria):              ABC, abc       3453 cada
+Troca de C/c (permuta B–C):       ABc, abC        476 cada   ← simples
+Troca de A/a (permuta A–B):       Abc, aBC        134 cada   ← simples
+Troca SÓ do B/b, o gene do meio:  AbC, aBc          6 cada   ← <b>DUPLO</b> (mais raro)</pre>
+    <ul>
+      <li>Há recombinantes <strong>simples e duplos</strong> → “crossing-over único ou duplo” (elimina a e c).</li>
+      <li>Mais recombinantes para C/c (476) do que para A/a (134) → a distância <strong>B–C é maior</strong> que A–B (elimina b).</li>
+    </ul>
+    <div class="box adv" style="margin-bottom:0"><div class="tag">Aprofundamento — as distâncias em números</div><p class="comp-lbl">Complemento para melhor compreensão:</p>
+    <p>Total = 2 × (3453 + 476 + 6 + 134) = <strong>8138</strong>. Os duplos contam como recombinantes para <em>as duas</em> regiões.</p>
+    <p>A–B = (134 + 134 + 6 + 6) / 8138 ≈ <strong>3,4 UR</strong> · B–C = (476 + 476 + 6 + 6) / 8138 ≈ <strong>11,8 UR</strong>.</p>
+    <p>Curiosidade: na <em>Drosophila</em> real, os machos praticamente não fazem crossing-over na meiose. A questão usa um cenário simplificado — na prova, siga o enunciado.</p></div></div></details>
+  </div>
+
+  <div class="q">
+    <div class="src">Questão 11 · UNIFESP (discursiva)</div>
+    <p>Em tomateiros, <span class="g">A</span> condiciona frutos vermelhos e <span class="g">a</span>, amarelos; <span class="g">B</span> condiciona flores amarelas e <span class="g">b</span>, brancas. Numa planta adulta, A e B estão no mesmo cromossomo, a 15 UR, assim como a e b:</p>
+    <pre class="scheme">A ──────────────── B
+a ──────────────── b
+|◄────── 15 UR ─────►|</pre>
+    <p>a) Quais os gametas recombinantes produzidos por essa planta?<br>b) Qual a porcentagem esperada de gametas recombinantes? Do cruzamento dessa planta com uma duplo-homozigótica recessiva foram geradas 1000 sementes. Quantas originarão plantas com frutos vermelhos e flores brancas?</p>
+    <details><summary>Ver resolução</summary><div class="ans">
+    <p><span class="gab">a) Ab e aB · b) 15%; 75 sementes</span></p>
+    <p><strong>a)</strong> A planta é cis (<span class="g">AB/ab</span>). Parentais: AB e ab. <strong>Recombinantes: Ab e aB.</strong></p>
+    <p><strong>b)</strong> 15 UR → <strong>15%</strong> de recombinantes → Ab = 7,5% e aB = 7,5% (parentais: AB = 42,5% e ab = 42,5%).</p>
+    <p>Vermelho e flor branca = <span class="g">A_bb</span>. No cruzamento com <span class="g">ab/ab</span>, isso só acontece quando a planta passa o gameta <span class="g">Ab</span> → descendente <span class="g">Ab/ab</span>: 7,5% de 1000 = <strong>75 sementes</strong>.</p>
+    <div class="box trap" style="margin-bottom:0"><div class="tag">Erro comum</div><p>Responder 150 (15% de 1000). Os 15% são a <em>soma</em> dos dois recombinantes (Ab + aB); só o Ab dá vermelho com flor branca.</p></div></div></details>
+  </div>
+
+  <div class="box key"><div class="tag">Gabarito oficial da tarefa de Ligação Gênica</div>
+  <p class="g" style="display:inline-block;white-space:normal">1-B · 2-E · 3-D · 4-D · 5-A · 6-B · 7-A · 8-C · 9-A · 10-D · 11 discursiva</p></div>
+</section>
+
+<!-- ================= REVISÃO FINAL ================= -->
+<section class="mod part" id="revisao">
+  <div class="modhead"><span class="modnum">Revisão</span><div><h2>Revisão final dos conceitos principais</h2><p>Leia na véspera. Se você consegue explicar cada linha com as suas palavras, domina a aula.</p></div></div>
+
+  <h3>Qual fenômeno é? (tabela de diagnóstico)</h3>
+  <div class="tbl"><table>
+    <tr><th>Pista no enunciado</th><th>Fenômeno</th><th>Exemplo do material</th></tr>
+    <tr><td>Um gene → vários efeitos no organismo</td><td><strong>Pleiotropia</strong></td><td>fenilcetonúria, anemia falciforme, siameses, fibrose cística</td></tr>
+    <tr><td>Vários genes → um caráter, cada combinação com fenótipo próprio, 9:3:3:1</td><td><strong>Interação gênica simples</strong></td><td>crista de galinhas</td></tr>
+    <tr><td>Um gene impede a expressão de outro, <em>não alelo</em></td><td><strong>Epistasia</strong></td><td>Leghorn (dominante, 13:3), labrador (recessiva, 9:3:4), olhos (UEL)</td></tr>
+    <tr><td>Efeitos somados, variação contínua, curva em sino, “medidas”</td><td><strong>Herança quantitativa</strong></td><td>corola do tabaco, altura, peso, pigmentação da pele</td></tr>
+    <tr><td>3 ou mais alelos para o mesmo locus na população</td><td><strong>Polialelia</strong></td><td>sistema ABO</td></tr>
+    <tr><td>Heterozigoto mostra os dois fenótipos juntos</td><td><strong>Codominância</strong></td><td><span class="g">I<sup>A</sup>I<sup>B</sup></span> = AB; <span class="g">L<sup>M</sup>L<sup>N</sup></span> = MN</td></tr>
+    <tr><td>Heterozigoto com fenótipo intermediário</td><td><strong>Dominância incompleta</strong></td><td>UFRGS 2024</td></tr>
+    <tr><td>Dois genes que não seguem a 2ª lei; classes maiores e menores no cruzamento-teste</td><td><strong>Ligação gênica (linkage)</strong></td><td>todas as questões da tarefa de Ligação</td></tr>
+  </table></div>
+
+  <h3>Mapa mental da aula</h3>
+  <pre class="scheme"><b>GENÉTICA ALÉM DE MENDEL</b>
+│
+├─ <i>1 gene → vários caracteres</i> ─── PLEIOTROPIA  (PKU: ff → mental + pele + urina)
+│
+├─ <i>vários genes → 1 caráter</i> ──── INTERAÇÃO GÊNICA  (rota metabólica: genes → enzimas)
+│      ├─ simples ........ crista: R_E_ noz · R_ee rosa · rrE_ ervilha · rree simples
+│      ├─ epistasia ...... dominante (I inibe: 13:3) · recessiva (ee inibe: 9:3:4)
+│      └─ quantitativa ... aditivos somam · 2n+1 classes · extremos (1/4)ⁿ
+│
+├─ <i>1 gene, vários alelos</i> ─────── POLIALELIA → ABO: I<sup>A</sup> = I<sup>B</sup> &gt; i
+│      ├─ antígeno na hemácia · anticorpo (natural) no plasma
+│      ├─ O doador universal · AB receptor universal
+│      └─ Rh (não é polialelia): R_ Rh+ · rr Rh−; anti-Rh só após sensibilização
+│             └─ ERITROBLASTOSE: mãe rr + filho Rr, a partir do 2º filho Rh+
+│                   tratamento: sangue Rh− e fototerapia · prevenção: anti-Rh na mãe até 72 h
+│
+└─ <i>2 genes no mesmo cromossomo</i> ── LIGAÇÃO GÊNICA
+       ├─ crossing-over na prófase I → recombinantes (minoria)
+       ├─ % recombinação = distância (UR = cM) · máx. 50%
+       ├─ cis AB/ab · trans Ab/aB → descoberto pelos PARENTAIS (maioria)
+       └─ mapas: maior distância = pontas · duplo = mais raro, revela o gene do meio</pre>
+
+  <h3>Fórmulas e números para ter na ponta da língua</h3>
+  <div class="tbl"><table>
+    <tr><th>Situação</th><th>Ferramenta</th></tr>
+    <tr><td>Soma das classes = 16</td><td>2 pares de genes, duplos heterozigotos cruzados</td></tr>
+    <tr><td>Herança quantitativa — classes</td><td><span class="g">2n + 1</span></td></tr>
+    <tr><td>Herança quantitativa — cada extremo</td><td><span class="g">(1/4)ⁿ</span></td></tr>
+    <tr><td>Herança quantitativa — valor do aditivo</td><td><span class="g">(máx − mín) ÷ 2n</span></td></tr>
+    <tr><td>Genótipos com n alelos (polialelia)</td><td><span class="g">n(n+1)/2</span> → ABO: 6 genótipos, 4 fenótipos</td></tr>
+    <tr><td>Vários sistemas ao mesmo tempo</td><td>multiplique possibilidades (ou probabilidades) de cada sistema</td></tr>
+    <tr><td>Linkage — distância</td><td><span class="g">recombinantes ÷ total × 100</span> = UR</td></tr>
+    <tr><td>Linkage — gametas de AB/ab a d UR</td><td>cada recombinante = d/2 %; cada parental = (100 − d)/2 %</td></tr>
+    <tr><td>Linkage — células com permuta</td><td>taxa de recombinação = metade das células que fizeram permuta</td></tr>
+  </table></div>
+
+  <h3>Checklist de domínio</h3>
+  <ul class="checklist">
+    <li>Explico por que pleiotropia é o “inverso” da interação gênica, com um exemplo de cada.</li>
+    <li>Explico a fenilcetonúria pela rota fenilalanina → tirosina → melanina.</li>
+    <li>Sei por que o 9:3:3:1 da crista prova que há dois genes (16 = 4 × 4 gametas).</li>
+    <li>Diferencio epistasia de dominância (loci diferentes × mesmo locus).</li>
+    <li>Monto as classes E_B_, E_bb, ee_ _ e resolvo a Unicamp e a FUVEST dos labradores.</li>
+    <li>Calculo classes, extremos e valor do aditivo em herança quantitativa.</li>
+    <li>Explico as fontes de variação nas linhagens puras, F1 e F2 do tabaco.</li>
+    <li>Monto a tabela ABO (antígenos × anticorpos) sem decorar, pela regra “não há anticorpo contra o próprio antígeno”.</li>
+    <li>Resolvo testes de aglutinação e transfusões pelo par antígeno do doador × anticorpo do receptor.</li>
+    <li>Sei a diferença entre anticorpos naturais (ABO) e anti-Rh (só após sensibilização).</li>
+    <li>Conto a história da eritroblastose: condições, sequência, heredograma, tratamento e prevenção.</li>
+    <li>Identifico parentais e recombinantes num cruzamento-teste e calculo a distância em UR.</li>
+    <li>Distingo cis e trans e sei que recombinante depende do arranjo.</li>
+    <li>Ordeno genes num mapa e reconheço a classe de permuta dupla.</li>
+  </ul>
+
+  <h3>Todos os vídeos recomendados, num só lugar</h3>
+  <p class="verified">Links diretos, verificados em 22/09/2026.</p>
+  <div class="tbl"><table>
+    <tr><th>Tema</th><th>Vídeo</th><th>Professor / canal</th></tr>
+    <tr><td>Pleiotropia × interação</td><td><a href="https://www.youtube.com/watch?v=40IHkpdDSCw" target="_blank" rel="noopener">Pleiotropia × Interação gênica (GEN24)</a></td><td>Me Salva! ENEM</td></tr>
+    <tr><td>Interação simples</td><td><a href="https://www.youtube.com/watch?v=TDej2xDBMQo" target="_blank" rel="noopener">Interação Gênica Simples — Aula 11</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Epistasia</td><td><a href="https://www.youtube.com/watch?v=08LPYpObAxw" target="_blank" rel="noopener">Epistasia — Aula 12</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Epistasia (labradores)</td><td><a href="https://www.youtube.com/watch?v=QrtTJY7BY1g" target="_blank" rel="noopener">Epistasia em labradores</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Herança quantitativa</td><td><a href="https://www.youtube.com/watch?v=4J1Vbg9i_ro" target="_blank" rel="noopener">Herança Quantitativa — Aula 13</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Alelos múltiplos</td><td><a href="https://www.youtube.com/watch?v=MReJirBQfXs" target="_blank" rel="noopener">Alelos múltiplos — Aula 06</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>ABO e Rh (aula completa)</td><td><a href="https://www.youtube.com/watch?v=YHVGww7D7Ig" target="_blank" rel="noopener">SISTEMA ABO e RH — Tipos sanguíneos</a></td><td>Biologia com Samuel Cunha</td></tr>
+    <tr><td>ABO</td><td><a href="https://www.youtube.com/watch?v=Uxhn0R3IRNg" target="_blank" rel="noopener">Genética do SISTEMA ABO</a></td><td>Prof. Paulo Jubilut</td></tr>
+    <tr><td>ABO</td><td><a href="https://www.youtube.com/watch?v=P_1-oH56rlA" target="_blank" rel="noopener">Sistema ABO — Aula 07</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Rh, MN, eritroblastose</td><td><a href="https://www.youtube.com/watch?v=1_ifbXaLBEY" target="_blank" rel="noopener">Sistema Rh, MN e Eritroblastose Fetal — Aula 08</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Eritroblastose</td><td><a href="https://www.youtube.com/watch?v=tIp0atXSqNU" target="_blank" rel="noopener">ERITROBLASTOSE FETAL — DHPN</a></td><td>Biologia com Samuel Cunha</td></tr>
+    <tr><td>Aprofundamento ABO</td><td><a href="https://www.youtube.com/watch?v=MEvdIDhKWGA" target="_blank" rel="noopener">SANGUE FALSO O — Fenótipo Bombaim</a></td><td>Biologia com Samuel Cunha</td></tr>
+    <tr><td>Linkage</td><td><a href="https://www.youtube.com/watch?v=iLwHBzxUSA0" target="_blank" rel="noopener">Linkage (parte 1) — Aula 16</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Linkage</td><td><a href="https://www.youtube.com/watch?v=WrlZoChXqyc" target="_blank" rel="noopener">Linkage (parte 2) — Aula 17</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Linkage</td><td><a href="https://www.youtube.com/watch?v=zPIVGSntAno" target="_blank" rel="noopener">Linkage (com exercício)</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Mapas genéticos</td><td><a href="https://www.youtube.com/watch?v=F6XXUuUYyow" target="_blank" rel="noopener">Mapas Genéticos (Linkage) — Aula 18</a></td><td>Prof. Guilherme Goulart</td></tr>
+    <tr><td>Linkage (questões)</td><td><a href="https://www.youtube.com/watch?v=MVqHYMeLq6Y" target="_blank" rel="noopener">Genética: LINKAGE — Prof Gui Resolve</a></td><td>Prof. Guilherme Goulart</td></tr>
+  </table></div>
+</section>
+
+<footer>
+  <p><strong>Material-base:</strong> slides “Interação gênica × Pleiotropia” (22 slides), slides “Sistemas sanguíneos ABO e Rh” (28 slides), “Tarefa — Interação Gênica” e “Tarefa — Ligação Gênica” (com respostas), Profs. Ismael e Murilo, 2ª série, setembro/2026.</p>
+  <p>Tudo o que não estava no material aparece marcado como <span class="comp-lbl">“Complemento para melhor compreensão:”</span>. Correções de erros do material estão nas caixas laranja. Resoluções sem gabarito no arquivo (UEL 2024 e siameses) estão identificadas como resolução própria.</p>
+</footer>
+
+</div>
+</main>
+</div>
+<a class="totop" href="#inicio" aria-label="Voltar ao topo">↑</a>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  var links=[].slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var targets=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  var ticking=false;
+  function update(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop||document.body.scrollTop)/max*100:0)+'%';
+    var idx=0;
+    for(var i=0;i<targets.length;i++){
+      if(targets[i] && targets[i].getBoundingClientRect().top<140){idx=i;}
+    }
+    links.forEach(function(a,i){a.classList.toggle('active',i===idx);});
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
+  window.addEventListener('resize',update);
+  update();
+  var toc=document.getElementById('toc'), btn=document.getElementById('menuBtn');
+  btn.addEventListener('click',function(){toc.classList.toggle('open');});
+  links.forEach(function(a){a.addEventListener('click',function(){toc.classList.remove('open');});});
+  window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.setAttribute('open','');});});
+})();
+</script>
+</body>
+</html>
